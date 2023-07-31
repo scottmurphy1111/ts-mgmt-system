@@ -1,12 +1,28 @@
-<script>
+<script lang="ts">
 	import Aside from '$lib/components/Aside.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import './styles.css';
 	import { isSearching } from '$lib/stores/isSearching';
 	import { fade } from 'svelte/transition';
+	import { supabaseClient } from '$lib/supabase';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
+  
+  export let data;
 
-	console.log($isSearching);
 	$: activeOverlay = $isSearching ? 'active' : '';
+  let { supabase, session } = data;
+
+  onMount(() => {
+    const { data: { subscription }} = supabaseClient.auth.onAuthStateChange((event, _session) => {
+      if(_session?.expires_at !== session?.expires_at) {
+        invalidate('supabase:auth');
+      }
+    });
+
+    return () => subscription?.unsubscribe();
+  });
+
 </script>
 
 <div class="app">

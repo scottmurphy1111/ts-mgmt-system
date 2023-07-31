@@ -6,8 +6,6 @@
 	import SalesRepsIcon from '$lib/images/icons/salesReps.svelte';
 	import ReportsIcon from '$lib/images/icons/reports.svelte';
 
-	console.log(CustomersIcon);
-
 	let items = [
 		{
 			icon: CustomersIcon,
@@ -37,8 +35,6 @@
 	];
 
 	import { page } from '$app/stores';
-
-	console.log($page);
 </script>
 
 <aside>
