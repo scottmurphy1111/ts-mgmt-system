@@ -43,6 +43,8 @@
 	"type": "module",
 	"dependencies": {
 		"@planetscale/database": "^1.10.0",
+		"@supabase/auth-ui-shared": "^0.1.6",
+		"@supabase/auth-ui-svelte": "^0.2.2",
 		"@types/bcrypt": "^5.0.0",
 		"bcrypt": "^5.1.0",
 		"drizzle-orm": "^0.27.2",

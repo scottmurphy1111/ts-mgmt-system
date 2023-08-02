@@ -4,25 +4,28 @@
 	import './styles.css';
 	import { isSearching } from '$lib/stores/isSearching';
 	import { fade } from 'svelte/transition';
-	import { supabaseClient } from '$lib/supabase';
+	// import { supabaseClient } from '$lib/supabase';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
-  
-  export let data;
+
+	export let data;
 
 	$: activeOverlay = $isSearching ? 'active' : '';
-  let { supabase, session } = data;
 
-  onMount(() => {
-    const { data: { subscription }} = supabaseClient.auth.onAuthStateChange((event, _session) => {
-      if(_session?.expires_at !== session?.expires_at) {
-        invalidate('supabase:auth');
-      }
-    });
+	// let { supabase, session } = data;
+	// $: ({ supabase, session } = data);
 
-    return () => subscription?.unsubscribe();
-  });
+	// onMount(() => {
+	// 	const {
+	// 		data: { subscription }
+	// 	} = supabase.auth.onAuthStateChange((event, _session) => {
+	// 		if (_session?.expires_at !== session?.expires_at) {
+	// 			invalidate('supabase:auth');
+	// 		}
+	// 	});
 
+	// 	return () => subscription?.unsubscribe();
+	// });
 </script>
 
 <div class="app">
