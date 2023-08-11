@@ -1,10 +1,11 @@
 <script lang="ts">
-	import tsLogo from '$lib/images/ts-logo.svg';
-	import CustomersIcon from '$lib/images/icons/customers.svelte';
-	import ProducersIcon from '$lib/images/icons/producers.svelte';
-	import ProgramsIcon from '$lib/images/icons/programs.svelte';
-	import SalesRepsIcon from '$lib/images/icons/salesReps.svelte';
-	import ReportsIcon from '$lib/images/icons/reports.svelte';
+	// import tsLogo from 'images/ts-logo.svg';
+	// import tsLogoDark from 'images/ts-logo-dark.svg';
+	import CustomersIcon from '$lib/icons/customers.svelte';
+	import ProducersIcon from '$lib/icons/producers.svelte';
+	import ProgramsIcon from '$lib/icons/programs.svelte';
+	import SalesRepsIcon from '$lib/icons/salesReps.svelte';
+	import ReportsIcon from '$lib/icons/reports.svelte';
 
 	let items = [
 		{
@@ -35,16 +36,18 @@
 	];
 
 	import { page } from '$app/stores';
+	// console.log($page);
 </script>
 
-<aside>
-	<a href="/">
-		<img src={tsLogo} alt="ts-logo" />
-	</a>
-	<ul>
+<div class="shadow-md w-64 h-full p-4 bg-white dark:bg-surface-900 z-10">
+	<ul class="m-0 p-0 flex flex-col gap-2 list-none">
 		{#each items as item}
-			<li class={$page.route.id === item.link ? 'active' : ''}>
-				<a href={item.link}>
+			<li>
+				<a
+					class="inline-flex h-8 w-full gap-2 items-center"
+					class:active={$page.url.pathname === item.link}
+					href={item.link}
+				>
 					<svelte:component this={item.icon} />
 
 					<span class="text-style-md title">{item.title}</span>
@@ -52,15 +55,39 @@
 			</li>
 		{/each}
 	</ul>
-</aside>
+</div>
 
 <style lang="postcss">
-	aside {
+	a {
+		&:before {
+			content: '';
+			display: block;
+			width: 5px;
+			height: 24px;
+			/* background-color: rgba(var(--color-primary-500) / 0.5); */
+			margin-left: -1rem;
+			margin-right: calc(1rem - 5px);
+		}
+	}
+	.active {
+		color: rgba(var(--color-primary-500) / 1);
+		font-weight: 600;
+		&:before {
+			background-color: rgba(var(--color-primary-500) / 1);
+			/* content: '';
+			display: block;
+			width: 5px;
+			height: 24px;
+			margin-left: -1rem;
+			margin-right: calc(1rem - 5px); */
+		}
+	}
+	/*  aside { 
 		box-sizing: border-box;
 		padding: 1rem;
 		width: 15rem;
 		height: 100vh;
-		background: var(--color-ts-white);
+		background: var(--ts-white);
 		box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
 		position: relative;
 		z-index: 3;
@@ -93,19 +120,19 @@
 			&:before {
 				content: '';
 				display: block;
-				width: 4px;
+				width: 5px;
 				height: 24px;
-				background-color: var(--color-ts-blue);
+				background-color: var(--ts-blue);
 				margin-left: -1rem;
-				margin-right: calc(1rem - 4px);
+				margin-right: calc(1rem - 5px);
 			}
 
 			path {
-				fill: var(--color-ts-blue);
+				fill: var(--ts-blue);
 			}
 
 			a {
-				color: var(--color-ts-blue);
+				color: var(--ts-blue);
 			}
 			.title {
 				font-weight: 600;
@@ -117,12 +144,12 @@
 			gap: 0.69rem;
 			align-items: center;
 			text-decoration: none;
-			color: var(--color-ts-black);
+			color: var(--ts-black);
 
 			img {
 				width: 0.875rem;
 				height: 0.875rem;
 			}
 		}
-	}
+	} */
 </style>

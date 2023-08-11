@@ -28,6 +28,7 @@
 	.search {
 		display: flex;
 		gap: 0.5rem;
+		width: 100%;
 		/* flex: 1 1 auto; */
 	}
 
@@ -50,14 +51,14 @@
 		font-size: 0.875rem;
 		font-family: var(--font-family);
 		font-weight: 400;
-		color: var(--color-ts-black);
+		color: var(--ts-black);
 	}
 
 	.search-results {
 		position: absolute;
 		z-index: 4;
 		top: 3rem;
-		background: var(--color-ts-white);
+		background: var(--ts-white);
 		padding: 1rem;
 		box-sizing: border-box;
 	}

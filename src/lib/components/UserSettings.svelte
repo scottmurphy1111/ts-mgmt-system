@@ -1,13 +1,35 @@
-<script>
-	import user from '$lib/images/icons/user.svg';
+<script lang="ts">
+	import { enhance } from '$app/forms';
+	import type { User } from '@prisma/client';
+	import { popup } from '@skeletonlabs/skeleton';
+
+	import type { PopupSettings } from '@skeletonlabs/skeleton';
+
+	const userSettings: PopupSettings = {
+		event: 'click',
+		target: 'userSettings',
+		placement: 'bottom-end'
+	};
+
+	export let userData: Partial<User>;
+
+	console.log(userData);
 </script>
 
-<div class="user-settings">
-	<img src={user} alt="user" />
+<div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white" use:popup={userSettings}>
+	<img src="images/icons/user2.svg" alt="user" />
+</div>
+
+<div class="card flex flex-col p-4" data-popup="userSettings">
+	{userData.name}
+	{userData.email}
+	<!-- <form method="post" action="?/logout" use:enhance>
+		<input type="submit" value="Sign out" />
+	</form> -->
 </div>
 
 <style>
-	.user-settings {
-		margin-left: auto;
+	.badge-icon {
+		cursor: pointer;
 	}
 </style>

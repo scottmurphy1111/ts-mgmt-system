@@ -1,0 +1,34 @@
+/* Write your global styles here, in PostCSS syntax */
+@font-face {
+	/* Reference name */
+	font-family: 'Montserrat';
+	/* For multiple files use commas, ex: url(), url(), ... */
+	src: url('/fonts/Montserrat-VariableFont_wght.ttf'),
+		url('/fonts/Montserrat-Italic-VariableFont_wght.ttf');
+}
+
+html,
+body {
+	@apply h-full overflow-hidden;
+}
+body {
+	@apply bg-surface-50-900-token;
+	background-image: url('/images/bg-transparent.png');
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
+
+.btn {
+	@apply variant-filled-primary dark:bg-white dark:text-black;
+}
+
+.card {
+	@apply bg-white border border-surface-300 dark:bg-surface-900 dark:border dark:border-surface-700;
+}
+
+svg {
+	width: 1em;
+	height: 1em;
+}

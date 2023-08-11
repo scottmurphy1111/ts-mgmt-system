@@ -1,21 +1,29 @@
 // See https://kit.svelte.dev/docs/types#app
-
-import type { SupabaseClient } from '@supabase/supabase-js';
-import { Database } from './DatabaseDefinitions';
+import type { PrismaClient, Role } from '@prisma/client';
 
 // for information about these interfaces
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			supabase: SupabaseClient<Database>;
-			getSession: () => Promise<Session | null>;
+			auth: import('lucia').AuthRequest;
 		}
-		interface PageData {
-			session: Session | null;
-		}
+		// interface PageData {}
 		// interface Platform {}
 	}
+
+	namespace Lucia {
+		type Auth = import('$lib/server/lucia').Auth;
+		type DatabaseUserAttributes = {
+			email: string;
+			name: string;
+			role: Role;
+		};
+		type DatabaseSessionAttributes = object;
+	}
+
+	// eslint-disable-next-line no-var
+	var prisma: PrismaClient;
 }
 
 export {};

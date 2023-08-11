@@ -51,7 +51,7 @@
 		display: flex;
 		justify-content: flex-start;
 		align-items: center;
-		background: var(--color-ts-white);
+		background: var(--ts-white);
 		position: relative;
 		top: 0;
 		z-index: 2;
