@@ -45,3 +45,18 @@ enum Role {
   ADMIN
   SALES_REP
 }
+
+model Customer {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  address   String
+  city      String
+  state     String
+  zip       String
+  // trucks           Truck[]
+  // programsEnrolled Program[]
+  // lender           Lender[]
+}

@@ -1,11 +1,11 @@
 <script lang="ts">
 	// import tsLogo from 'images/ts-logo.svg';
 	// import tsLogoDark from 'images/ts-logo-dark.svg';
-	import CustomersIcon from '$lib/icons/customers.svelte';
-	import ProducersIcon from '$lib/icons/producers.svelte';
-	import ProgramsIcon from '$lib/icons/programs.svelte';
-	import SalesRepsIcon from '$lib/icons/salesReps.svelte';
-	import ReportsIcon from '$lib/icons/reports.svelte';
+	import CustomersIcon from '$lib/assets/icons/customers.svelte';
+	import ProducersIcon from '$lib/assets/icons/producers.svelte';
+	import ProgramsIcon from '$lib/assets/icons/programs.svelte';
+	import SalesRepsIcon from '$lib/assets/icons/salesReps.svelte';
+	import ReportsIcon from '$lib/assets/icons/reports.svelte';
 
 	let items = [
 		{
@@ -45,7 +45,7 @@
 			<li>
 				<a
 					class="inline-flex h-8 w-full gap-2 items-center"
-					class:active={$page.url.pathname === item.link}
+					class:active={$page.url.pathname.includes(item.link)}
 					href={item.link}
 				>
 					<svelte:component this={item.icon} />

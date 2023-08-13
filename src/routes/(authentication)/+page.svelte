@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { PageData } from './$types';
-	import ProgramsIcon from '$lib/icons/programs.svelte';
-	import ProducersIcon from '$lib/icons/producers.svelte';
-	import ServerIcon from '$lib/icons/server.svelte';
-	import UnlockIcon from '$lib/icons/unlock.svelte';
+	import ProgramsIcon from '$lib/assets/icons/programs.svelte';
+	import ProducersIcon from '$lib/assets/icons/producers.svelte';
+	import ServerIcon from '$lib/assets/icons/server.svelte';
+	import UnlockIcon from '$lib/assets/icons/unlock.svelte';
 	export let data: PageData;
 </script>
 
@@ -13,6 +13,7 @@
 		<a
 			href="/customers"
 			class=" card-hover card shadow-md bg-secondary-to-primary-300-600-token p-8 flex flex-col gap-4 w-96"
+			data-sveltekit-preload-data="tap"
 		>
 			<header>
 				<h3 class="flex gap-2 h3"><svelte:component this={ServerIcon} />TS Mgmt System</h3>

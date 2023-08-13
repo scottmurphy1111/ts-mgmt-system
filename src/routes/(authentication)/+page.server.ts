@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ locals }) => {
 	// 	};
 };
 
-    export const actions: Actions = {
+export const actions: Actions = {
 	logout: async ({ locals }) => {
 		const session = await locals.auth.validate();
 		if (!session) return fail(401);

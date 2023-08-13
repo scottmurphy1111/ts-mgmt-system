@@ -2,6 +2,7 @@
 	import { enhance } from '$app/forms';
 	import type { User } from '@prisma/client';
 	import { popup } from '@skeletonlabs/skeleton';
+	import userIcon from '$lib/assets/images/icons/user2.svg';
 
 	import type { PopupSettings } from '@skeletonlabs/skeleton';
 
@@ -13,11 +14,11 @@
 
 	export let userData: Partial<User>;
 
-	console.log(userData);
+	// console.log(userData);
 </script>
 
 <div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white" use:popup={userSettings}>
-	<img src="images/icons/user2.svg" alt="user" />
+	<img src={userIcon} alt="user" />
 </div>
 
 <div class="card flex flex-col p-4" data-popup="userSettings">

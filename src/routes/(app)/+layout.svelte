@@ -6,6 +6,12 @@
 	import type { LayoutData } from './$types';
 	import UserSettings from '$lib/components/UserSettings.svelte';
 	import Aside from '$lib/components/Aside.svelte';
+	import { computePosition, autoUpdate, offset, shift, flip, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
+	storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+
+	import logo from '$lib/assets/images/ts-logo.svg';
+	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
 
 	export let data: LayoutData;
 </script>
@@ -16,8 +22,8 @@
 		<AppBar shadow="shadow" background="bg-white dark:bg-surface-900">
 			<svelte:fragment slot="lead">
 				<a class="w-48" href="/">
-					<img class="block dark:hidden" src="images/ts-logo.svg" alt="ts-logo" />
-					<img class="hidden dark:block" src="images/ts-logo-dark.svg" alt="ts-logo-dark" />
+					<img class="block dark:hidden" src={logo} alt="ts-logo" />
+					<img class="hidden dark:block" src={logoDark} alt="ts-logo-dark" />
 				</a>
 				<!-- {#if data.name}
 					<div>Welcome {data.name}</div>
@@ -32,5 +38,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		<Aside />
 	</svelte:fragment>
-	<slot />
+	<div class="p-4">
+		<slot />
+	</div>
 </AppShell>

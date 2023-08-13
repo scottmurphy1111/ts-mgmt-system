@@ -10,6 +10,8 @@
 	import { AppBar, AppShell, LightSwitch, Toast } from '@skeletonlabs/skeleton';
 	import type { LayoutData } from './$types';
 	import UserSettings from '$lib/components/UserSettings.svelte';
+	import logo from '$lib/assets/images/ts-logo.svg';
+	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
 
 	export let data: LayoutData;
 </script>
@@ -29,8 +31,8 @@
 	</svelte:fragment>
 	<div class="h-full w-full flex flex-col justify-start items-center p-12">
 		<div class="flex gap-4 justify-center items-center mb-8">
-			<img src="images/ts-logo.svg" alt="ts-logo" class="w-full block dark:hidden" />
-			<img src="images/ts-logo-dark.svg" alt="ts-logo" class="w-full hidden dark:block" />
+			<img src={logo} alt="ts-logo" class="w-full block dark:hidden" />
+			<img src={logoDark} alt="ts-logo" class="w-full hidden dark:block" />
 		</div>
 		{#if data.name}
 			<h3 class="h3">Welcome {`${data.name.charAt(0).toUpperCase()}${data.name.slice(1)}`}</h3>
