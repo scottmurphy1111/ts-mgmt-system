@@ -47,7 +47,8 @@ enum Role {
 }
 
 model Customer {
-  id        Int    @id @default(autoincrement())
+  id        String     @id @default(uuid())
+  createdAt DateTime   @default(now())
   firstName String
   lastName  String
   email     String
@@ -56,7 +57,120 @@ model Customer {
   city      String
   state     String
   zip       String
-  // trucks           Truck[]
+  country   String     @default("USA")
+  trucks    Truck[]
+  producer  Producer[]
+
   // programsEnrolled Program[]
   // lender           Lender[]
+  Program Program[]
+
+  @@index([lastName])
+}
+
+model Truck {
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  year       String
+  make       String
+  model      String
+  vin        String    @unique
+  startMiles String?
+  customerId String?
+  customers  Customer? @relation(fields: [customerId], references: [id])
+  producerId String?
+  producers  Producer? @relation(fields: [producerId], references: [id])
+  dutyType   DutyType?
+  // programsEnrolled Program[]
+  // lender           Lender[]
+
+  @@index([vin])
+  @@index([customerId])
+  @@index([producerId])
+}
+
+enum DutyType {
+  MEDIUM
+  HEAVY
+}
+
+model Producer {
+  id                String              @id @default(uuid())
+  createdAt         DateTime            @default(now())
+  taxId             String
+  companyName       String
+  dba               String
+  address           String
+  city              String
+  state             String
+  zip               String
+  country           String              @default("USA")
+  website           String
+  isFleet           Boolean             @default(false)
+  trucks            Truck[]
+  customers         Customer[]
+  isMediumDuty      Boolean             @default(false)
+  isHeavyDuty       Boolean             @default(false)
+  programsEnrolled  Program[]
+  producerPersonnel ProducerPersonnel[]
+  salesRep          SalesRep?
+  // newOrUsed enum NewOrUsed //make enum , can be null
+
+  // ProducerType ProducerType //make enum
+
+  // phone     String
+  // email     String
+  // contact   String
+  // notes     String
+  // programsEnrolled Program[]
+  // lender           Lender[]
+
+  @@index([companyName])
+}
+
+model ProducerPersonnel {
+  id               String    @id @default(uuid())
+  createdAt        DateTime  @default(now())
+  producerId       String?   @unique
+  producer         Producer? @relation(fields: [producerId], references: [id])
+  name             String
+  phone            String
+  email            String
+  title            String
+  isPrimaryContact Boolean   @default(false)
+  notes            String
+
+  @@index([producerId])
+  @@index([name])
+}
+
+model Program {
+  id          String    @id @default(uuid())
+  createdAt   DateTime  @default(now())
+  name        String
+  description String
+  producerId  String?
+  producer    Producer? @relation(fields: [producerId], references: [id])
+  customerId  String?
+  customer    Customer? @relation(fields: [customerId], references: [id])
+
+  @@index([name])
+  @@index([producerId])
+  @@index([customerId])
+}
+
+model SalesRep {
+  id         String    @id @default(uuid())
+  createdAt  DateTime  @default(now())
+  producerId String?   @unique
+  producer   Producer? @relation(fields: [producerId], references: [id])
+  firstName  String
+  lastName   String
+  phone      String
+  email      String
+  company    String
+  notes      String
+
+  @@index([producerId])
+  @@index([lastName])
 }

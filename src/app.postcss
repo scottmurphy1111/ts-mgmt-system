@@ -20,8 +20,8 @@ body {
 	background-size: cover;
 }
 
-.btn {
-	@apply variant-filled-primary dark:bg-white dark:text-black;
+.btn-primary {
+	@apply variant-filled-primary dark:bg-white dark:text-black px-4;
 }
 
 .card {
@@ -36,4 +36,12 @@ svg {
 th,
 td {
 	@apply whitespace-nowrap;
+}
+
+label {
+	@apply text-base font-semibold text-surface-900 dark:text-surface-100 flex-auto;
+}
+
+dialog {
+	@apply dark:bg-surface-900 text-surface-900 dark:text-surface-100;
 }

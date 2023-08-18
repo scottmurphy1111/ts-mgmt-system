@@ -22,7 +22,7 @@
 				<p>Manage Customer Info</p>
 			</section>
 			<footer>
-				<button class="btn variant-filled-primary dark:bg-white dark:text-black">Launch</button>
+				<button class="btn btn-primary">Launch</button>
 			</footer>
 		</a>
 		<a href="/" class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96">
@@ -33,7 +33,7 @@
 				<p>Generate New/Potential Customers</p>
 			</section>
 			<footer>
-				<button class="btn variant-filled-primary">Launch</button>
+				<button class="btn btn-primary">Launch</button>
 			</footer>
 		</a>
 
@@ -49,7 +49,7 @@
 					<p>Manage Users</p>
 				</section>
 				<footer>
-					<button class="btn variant-filled-primary">Launch</button>
+					<button class="btn btn-primary">Launch</button>
 				</footer>
 			</a>
 		{/if}

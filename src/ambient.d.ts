@@ -1,4 +1,4 @@
-type Database = {
+export type Database = {
 	user: {
 		id: string;
 		email: string;
@@ -9,6 +9,7 @@ type Database = {
 
 	customer: {
 		id: string;
+		createdAt: string;
 		firstName: string;
 		lastName: string;
 		email: string;
@@ -17,5 +18,17 @@ type Database = {
 		city: string;
 		state: string;
 		zip: string;
+		trucks?: Truck[];
+	};
+
+	truck: {
+		id: string;
+		createdAt: string;
+		year: string;
+		make: string;
+		model: string;
+		vin: string;
+		startMiles: string;
+		customers?: Customer[];
 	};
 };

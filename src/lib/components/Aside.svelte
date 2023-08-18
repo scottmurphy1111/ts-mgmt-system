@@ -2,6 +2,7 @@
 	// import tsLogo from 'images/ts-logo.svg';
 	// import tsLogoDark from 'images/ts-logo-dark.svg';
 	import CustomersIcon from '$lib/assets/icons/customers.svelte';
+	import TrucksIcon from '$lib/assets/icons/trucks.svelte';
 	import ProducersIcon from '$lib/assets/icons/producers.svelte';
 	import ProgramsIcon from '$lib/assets/icons/programs.svelte';
 	import SalesRepsIcon from '$lib/assets/icons/salesReps.svelte';
@@ -12,6 +13,11 @@
 			icon: CustomersIcon,
 			title: 'Customers',
 			link: '/customers'
+		},
+		{
+			icon: TrucksIcon,
+			title: 'Trucks',
+			link: '/trucks'
 		},
 		{
 			icon: ProducersIcon,
@@ -26,7 +32,7 @@
 		{
 			icon: SalesRepsIcon,
 			title: 'Sales Reps',
-			link: '/salesReps'
+			link: '/sales-reps'
 		},
 		{
 			icon: ReportsIcon,

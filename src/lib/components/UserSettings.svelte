@@ -14,6 +14,11 @@
 
 	export let userData: Partial<User>;
 
+	//this doesn't work
+	const logout = async () => {
+		document.cookie = 'auth_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+	};
+
 	// console.log(userData);
 </script>
 
@@ -24,6 +29,7 @@
 <div class="card flex flex-col p-4" data-popup="userSettings">
 	{userData.name}
 	{userData.email}
+	<button class="btn btn-primary" on:click={logout}>Logout</button>
 	<!-- <form method="post" action="?/logout" use:enhance>
 		<input type="submit" value="Sign out" />
 	</form> -->

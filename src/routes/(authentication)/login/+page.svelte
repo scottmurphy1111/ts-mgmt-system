@@ -42,6 +42,7 @@
 					class:input-error={$errors.email}
 					aria-invalid={$errors.email ? 'true' : undefined}
 					name="email"
+					autocomplete="email"
 					bind:value={$form.email}
 				/>
 			</label>
@@ -57,6 +58,7 @@
 					aria-invalid={$errors.password ? 'true' : undefined}
 					type="password"
 					name="password"
+					autocomplete="current-password"
 				/>
 			</label>
 			{#if $errors.password}
