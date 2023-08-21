@@ -44,14 +44,10 @@ export const actions: Actions = {
 				form.data.password.toString()
 			);
 
-			console.log('user', user);
-
 			const session = await auth.createSession({
 				userId: user.userId,
 				attributes: {}
 			});
-
-			console.log('session', session);
 
 			event.locals.auth.setSession(session);
 		} catch (e) {

@@ -1,6 +1,4 @@
 <script lang="ts">
-	// import tsLogo from 'images/ts-logo.svg';
-	// import tsLogoDark from 'images/ts-logo-dark.svg';
 	import CustomersIcon from '$lib/assets/icons/customers.svelte';
 	import TrucksIcon from '$lib/assets/icons/trucks.svelte';
 	import ProducersIcon from '$lib/assets/icons/producers.svelte';
@@ -42,7 +40,6 @@
 	];
 
 	import { page } from '$app/stores';
-	// console.log($page);
 </script>
 
 <div class="shadow-md w-64 h-full p-4 bg-white dark:bg-surface-900 z-10">
@@ -80,82 +77,6 @@
 		font-weight: 600;
 		&:before {
 			background-color: rgba(var(--color-primary-500) / 1);
-			/* content: '';
-			display: block;
-			width: 5px;
-			height: 24px;
-			margin-left: -1rem;
-			margin-right: calc(1rem - 5px); */
 		}
 	}
-	/*  aside { 
-		box-sizing: border-box;
-		padding: 1rem;
-		width: 15rem;
-		height: 100vh;
-		background: var(--ts-white);
-		box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.25);
-		position: relative;
-		z-index: 3;
-
-		> a {
-			display: flex;
-			width: 189px;
-			margin-bottom: 3.5rem;
-
-			img {
-				width: 100%;
-			}
-		}
-	}
-
-	ul {
-		list-style: none;
-		padding: 0;
-		margin: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 1rem;
-	}
-
-	li {
-		display: inline-flex;
-		height: 24px;
-
-		&.active {
-			&:before {
-				content: '';
-				display: block;
-				width: 5px;
-				height: 24px;
-				background-color: var(--ts-blue);
-				margin-left: -1rem;
-				margin-right: calc(1rem - 5px);
-			}
-
-			path {
-				fill: var(--ts-blue);
-			}
-
-			a {
-				color: var(--ts-blue);
-			}
-			.title {
-				font-weight: 600;
-			}
-		}
-
-		a {
-			display: flex;
-			gap: 0.69rem;
-			align-items: center;
-			text-decoration: none;
-			color: var(--ts-black);
-
-			img {
-				width: 0.875rem;
-				height: 0.875rem;
-			}
-		}
-	} */
 </style>

@@ -14,6 +14,5 @@ export const GET = async (req) => {
 		}
 	});
 
-	console.log('searchedTrucks', searchedTrucks);
 	return json(searchedTrucks);
 };

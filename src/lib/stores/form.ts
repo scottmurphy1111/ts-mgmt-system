@@ -58,41 +58,11 @@ export const createFormStore = <T extends Record<PropertyKey, any>>({
 		},
 		resetFormData: () => {
 			update((prev) => {
-				console.log('prev', prev);
 				return {
 					...prev,
 					status: 'idle'
 				};
 			});
 		}
-		// data: initialValue.data,
-		// updateForm: (newVal: FormStoreData<T>) => {
-		// 	update((prev) => ({
-		// 		...prev,
-		// 		data: newVal
-		// 	}));
-		// },
-		// resetForm: () => set(initialValue),
-
-		// status: initialValue.status || 'idle',
-		// updateStatus: (status: FormStatus) => {
-		// 	console.log('updateStatus', status);
-		// 	update((prev) => ({
-		// 		...prev,
-		// 		status: status
-		// 	}));
-		// },
 	};
 };
-
-// export const updateFormData = <T extends Record<PropertyKey, any>>(store: FormStore<T>, newVal: FormStoreData<T>) => {
-//   store.update((prev) => (
-//     {
-//       data: {
-//       ...prev.data,
-//       ...newVal,
-//       status: prev.status
-//     }
-//   })
-//  );
-// }

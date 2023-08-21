@@ -13,7 +13,6 @@ export const load: PageServerLoad = async () => {
 		return trucks;
 	};
 
-	console.log('load', await getTrucks());
 	return {
 		trucks: await getTrucks()
 	};

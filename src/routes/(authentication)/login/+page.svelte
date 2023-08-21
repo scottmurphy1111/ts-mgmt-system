@@ -8,14 +8,11 @@
 		message: 'There was an error logging in. Please try again.'
 	};
 
-	const { form, errors, enhance, message, delayed } = superForm(data.form, {
+	const { form, errors, enhance, delayed } = superForm(data.form, {
 		clearOnSubmit: 'errors-and-message',
 		taintedMessage: null,
-		onSubmit: (data) => {
-			console.log('data', data);
-		},
+		onSubmit: (data) => {},
 		onUpdate: (event) => {
-			console.log(event.form.message);
 			toastStore.trigger({
 				message: event.form.message ? event.form.message : 'Logged in successfully!'
 			});

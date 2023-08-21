@@ -25,14 +25,6 @@
 	const goToTruck = (vin: string) => {
 		goto(`/trucks/${vin}`);
 	};
-
-	// const processCustomerData = (truck: TruckWithCustomers) => {
-	// 	console.log('truck', truck);
-	// 	const customers = truck.customers?.map((customer: any) => `<div>${customer.firstName} ${customer.lastName}</div>`)
-	// 		.join('');
-
-	// 	return customers;
-	// };
 </script>
 
 <form on:submit|preventDefault={() => getSearchedTrucks($searchStore.search)}>

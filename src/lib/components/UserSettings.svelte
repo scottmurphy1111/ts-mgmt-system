@@ -18,8 +18,6 @@
 	const logout = async () => {
 		document.cookie = 'auth_session=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 	};
-
-	// console.log(userData);
 </script>
 
 <div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white" use:popup={userSettings}>

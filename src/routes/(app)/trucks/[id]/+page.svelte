@@ -26,9 +26,8 @@
 			class="flex flex-col gap-4 mb-4"
 			method="post"
 			action="?/update"
-			use:enhance={({ formData }) => {
+			use:enhance={() => {
 				return async ({ result }) => {
-					console.log('result', result);
 					if (result.type === 'success') {
 						// await update();
 						// await applyAction(result);

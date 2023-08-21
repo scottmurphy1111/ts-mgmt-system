@@ -47,8 +47,8 @@ enum Role {
 }
 
 model Customer {
-  id        String     @id @default(uuid())
-  createdAt DateTime   @default(now())
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
   firstName String
   lastName  String
   email     String
@@ -57,36 +57,50 @@ model Customer {
   city      String
   state     String
   zip       String
-  country   String     @default("USA")
+  country   String    @default("USA")
   trucks    Truck[]
-  producer  Producer[]
+  producer  Producer? @relation(fields: [producerId], references: [id])
 
   // programsEnrolled Program[]
   // lender           Lender[]
-  Program Program[]
+
+  producerId String?
 
   @@index([lastName])
+  @@index([producerId])
 }
 
 model Truck {
-  id         String    @id @default(uuid())
-  createdAt  DateTime  @default(now())
-  year       String
-  make       String
-  model      String
-  vin        String    @unique
-  startMiles String?
-  customerId String?
-  customers  Customer? @relation(fields: [customerId], references: [id])
-  producerId String?
-  producers  Producer? @relation(fields: [producerId], references: [id])
-  dutyType   DutyType?
-  // programsEnrolled Program[]
+  id                String                  @id @default(uuid())
+  createdAt         DateTime                @default(now())
+  year              String
+  make              String
+  model             String
+  vin               String                  @unique
+  startMiles        String?
+  customers         Customer[]
+  currentCustomerId String?                 @unique
+  producerId        String?
+  producers         Producer?               @relation(fields: [producerId], references: [id])
+  dutyType          DutyType?
+  programsEnrolled  TruckProgramsEnrolled[]
   // lender           Lender[]
 
   @@index([vin])
-  @@index([customerId])
+  @@index([currentCustomerId])
   @@index([producerId])
+}
+
+model TruckProgramsEnrolled {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  truckId   String?
+  truck     Truck?   @relation(fields: [truckId], references: [id])
+  programId String?
+  isActive  Boolean  @default(true)
+
+  @@index([truckId])
+  @@index([programId])
 }
 
 enum DutyType {
@@ -95,23 +109,23 @@ enum DutyType {
 }
 
 model Producer {
-  id                String              @id @default(uuid())
-  createdAt         DateTime            @default(now())
-  taxId             String
-  companyName       String
-  dba               String
-  address           String
-  city              String
-  state             String
-  zip               String
-  country           String              @default("USA")
-  website           String
-  isFleet           Boolean             @default(false)
-  trucks            Truck[]
-  customers         Customer[]
-  isMediumDuty      Boolean             @default(false)
-  isHeavyDuty       Boolean             @default(false)
-  programsEnrolled  Program[]
+  id           String     @id @default(uuid())
+  createdAt    DateTime   @default(now())
+  taxId        String
+  companyName  String
+  dba          String
+  address      String
+  city         String
+  state        String
+  zip          String
+  country      String     @default("USA")
+  website      String
+  isFleet      Boolean    @default(false)
+  trucks       Truck[]
+  customers    Customer[]
+  isMediumDuty Boolean    @default(false)
+  isHeavyDuty  Boolean    @default(false)
+
   producerPersonnel ProducerPersonnel[]
   salesRep          SalesRep?
   // newOrUsed enum NewOrUsed //make enum , can be null
@@ -145,18 +159,12 @@ model ProducerPersonnel {
 }
 
 model Program {
-  id          String    @id @default(uuid())
-  createdAt   DateTime  @default(now())
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
   name        String
   description String
-  producerId  String?
-  producer    Producer? @relation(fields: [producerId], references: [id])
-  customerId  String?
-  customer    Customer? @relation(fields: [customerId], references: [id])
 
   @@index([name])
-  @@index([producerId])
-  @@index([customerId])
 }
 
 model SalesRep {

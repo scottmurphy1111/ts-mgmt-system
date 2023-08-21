@@ -1,15 +1,7 @@
 import { client } from '$lib/server/prisma';
-import type { Prisma } from '@prisma/client';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	// const session = await locals.auth.validate();
-	// if (session) throw redirect(302, '/');
-
-	type CustomerWithTrucks = Prisma.CustomerGetPayload<{
-		include: { trucks: true };
-	}>;
-
 	const getCustomerWithTrucks = async () => {
 		return await client.customer.findUnique({
 			where: {
@@ -21,7 +13,6 @@ export const load: PageServerLoad = async ({ params }) => {
 		});
 	};
 
-	console.log('result', getCustomerWithTrucks());
 	return {
 		customerData: await getCustomerWithTrucks()
 	};
@@ -38,7 +29,6 @@ export const actions: Actions = {
 			data
 		});
 
-		console.log('result', result);
 		return {
 			...result
 		};

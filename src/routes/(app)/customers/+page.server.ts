@@ -1,8 +1,6 @@
 import { client } from '$lib/server/prisma';
 import type { Actions } from '@sveltejs/kit';
-import type { PageServerData, PageServerLoad } from './$types';
-import type { Prisma } from '@prisma/client';
-import type { CustomerWithTrucks } from '$lib/types/customer.types';
+import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	// gets initial customer data
@@ -22,21 +20,9 @@ export const load: PageServerLoad = async () => {
 };
 
 export const actions: Actions = {
-	// search: async (query) => {
-	// 	const customers = await client.customer.findMany({
-	// 		where: {
-	// 			lastName: {
-	// 				contains: query
-	// 			}
-	// 		}
-	// 	});
-
-	// 	return { customers };
-	// }
 	create: async ({ request }) => {
 		const data = Object.fromEntries(await request.formData());
 
-		console.log('data', data);
 		if (!data.firstName) throw new Error('No data was sent');
 
 		const customer = await client.customer.create({
@@ -56,16 +42,4 @@ export const actions: Actions = {
 			data: customer
 		};
 	}
-	// delete: async ({ request }) => {
-	// 	console.log('request', request);
-	// 	// const customer = await client.customer.deleteMany({
-	// 	//   where: {
-	// 	//     in:
-	// 	//   }
-	// 	// });
-
-	// 	return {
-	// 		// data: customer
-	// 	};
-	// }
 };

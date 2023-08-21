@@ -2,7 +2,6 @@ import { client } from '$lib/server/prisma';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
-	console.log('params', params);
 	const getTrucksWithCustomers = async () => {
 		return await client.truck.findUnique({
 			where: {
@@ -30,7 +29,6 @@ export const actions: Actions = {
 			data
 		});
 
-		console.log('result', result);
 		return {
 			data: result
 		};

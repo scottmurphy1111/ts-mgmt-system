@@ -1,6 +1,6 @@
 import { auth } from '$lib/server/lucia';
-import { fail, redirect } from '@sveltejs/kit';
-import { ZodError, z } from 'zod';
+import { redirect } from '@sveltejs/kit';
+import { z } from 'zod';
 import type { Actions } from '@sveltejs/kit';
 import { LuciaError } from 'lucia';
 import { Prisma } from '@prisma/client';
@@ -53,10 +53,8 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
-      default: async (event) => {
+	default: async (event) => {
 		const form = await superValidate(event, signupSchema);
-
-		console.log('form', form);
 
 		try {
 			if (form.valid) {

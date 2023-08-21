@@ -9,7 +9,6 @@
 	// export let resetForm: () => void;
 </script>
 
-<h4 class="text-lg font-semibold mb-4">Personal Info</h4>
 <div class="flex gap-4 w-full">
 	<label class="font-light" for="firstName">
 		First Name:
@@ -75,13 +74,13 @@
 		</p>
 	</label>
 </div>
-<h4 class="text-lg font-semibold mb-4">Trucks</h4>
+<!-- <h4 class="text-lg font-semibold mb-4">Trucks</h4>
 <div class="flex gap-4 w-full">
 	<label class="font-light" for="trucks">
 		Trucks:
 
-		<p class="text-md font-semibold">
-			<!-- {@html processTruckData($customerFormStore?.data)} -->
-		</p>
-	</label>
-</div>
+		<p class="text-md font-semibold"> -->
+<!-- {@html processTruckData($customerFormStore?.data)} -->
+<!-- </p>
+	</label> 
+</div> -->

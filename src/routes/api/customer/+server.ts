@@ -10,6 +10,5 @@ export const GET = async (req) => {
 		}
 	});
 
-	console.log('customerResult', customerResult);
 	return json(customerResult);
 };
