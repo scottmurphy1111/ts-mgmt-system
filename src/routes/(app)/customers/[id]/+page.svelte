@@ -4,16 +4,20 @@
 	import { createFormStore } from '$lib/stores/form';
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import { TabGroup, Tab } from '@skeletonlabs/skeleton';
+	import { TabGroup, Tab, toastStore } from '@skeletonlabs/skeleton';
 	import PersonalInfo from './PersonalInfo.svelte';
 	import { page } from '$app/stores';
+	import { superForm } from 'sveltekit-superforms/client';
+	import Trucks from './Trucks.svelte';
 
 	export let data: PageData;
 
-	const { customerData } = data;
+	const { customer } = data;
+
+	console.log('customer', customer);
 
 	const customerFormStore = createFormStore({
-		data: customerData as CustomerWithTrucks,
+		data: customer as CustomerWithTrucks,
 		status: 'idle'
 	});
 
@@ -24,8 +28,8 @@
 
 <div class="flex justify-between mb-4">
 	<h3 class="h3">
-		{$page.data.customerData.firstName}
-		{$page.data.customerData.lastName} - Cust Id# {$page.data.customerData.id}
+		{$page.data.customer.firstName}
+		{$page.data.customer.lastName} - Cust Id# {$page.data.customer.id}
 	</h3>
 </div>
 <TabGroup>
@@ -37,7 +41,7 @@
 		{#if tab === 0}
 			<PersonalInfo {data} />
 		{:else if tab === 1}
-			<h2>Trucks</h2>
+			<Trucks trucks={customer?.trucks} />
 		{:else if tab === 2}
 			<h2>Lender</h2>
 		{:else}

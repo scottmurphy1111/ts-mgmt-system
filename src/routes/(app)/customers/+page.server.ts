@@ -2,7 +2,11 @@ import { client } from '$lib/server/prisma';
 import type { Actions } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async () => {
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { Prisma } from '@prisma/client';
+import { customerPersonalInfoSchema } from './customer.schema';
+
+export const load: PageServerLoad = async (event) => {
 	// gets initial customer data
 	const getCustomers = async () => {
 		const customers = await client.customer.findMany({
@@ -14,32 +18,42 @@ export const load: PageServerLoad = async () => {
 		return customers;
 	};
 
+	const form = await superValidate(event, customerPersonalInfoSchema);
+
 	return {
+		form,
 		customers: await getCustomers()
 	};
 };
 
 export const actions: Actions = {
-	create: async ({ request }) => {
-		const data = Object.fromEntries(await request.formData());
+	create: async (event) => {
+		const form = await superValidate(event, customerPersonalInfoSchema);
 
-		if (!data.firstName) throw new Error('No data was sent');
+		if (!form.valid) {
+			return message(form, 'Customer Data is Invalid, Try Again!');
+		}
 
-		const customer = await client.customer.create({
-			data: {
-				firstName: data.firstName.toString(),
-				lastName: data.lastName.toString(),
-				address: data.address.toString(),
-				city: data.city.toString(),
-				state: data.state.toString(),
-				zip: data.zip.toString(),
-				email: data.email.toString(),
-				phone: data.phone.toString()
+		try {
+			await client.customer.create({
+				data: {
+					firstName: form.data.firstName.toString(),
+					lastName: form.data.lastName.toString(),
+					address: form.data.address.toString(),
+					city: form.data.city.toString(),
+					state: form.data.state.toString(),
+					zip: form.data.zip.toString(),
+					email: form.data.email.toString(),
+					phone: form.data.phone?.toString()
+				}
+			});
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				return message(form, 'Internal Server Error');
 			}
-		});
-
+		}
 		return {
-			data: customer
+			form
 		};
 	}
 };

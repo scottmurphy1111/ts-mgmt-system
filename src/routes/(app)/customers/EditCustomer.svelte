@@ -1,13 +1,23 @@
 <script lang="ts">
 	import type { FormStoreModel } from '$lib/stores/form';
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import { getContext } from 'svelte';
+	import { getContext, onDestroy, onMount } from 'svelte';
 	import type { Writable } from 'svelte/store';
 	import { states } from '$lib/data/states';
+	import { formatPhoneInput } from '$lib/utils/formatters';
 
 	let customerFormStore =
 		getContext<Writable<FormStoreModel<CustomerWithTrucks>>>('customerFormStore');
 	export let resetForm: () => void;
+	export let errors: any;
+	let phoneInput: HTMLInputElement;
+
+	// onMount(() => {
+	// 	formatPhoneInput(phoneInput);
+	// });
+
+	// onDestroy(() => {});
+	console.log($customerFormStore);
 </script>
 
 <div class="flex gap-4 w-full">
@@ -20,6 +30,9 @@
 			value={$customerFormStore?.data?.firstName ?? ''}
 			name="firstName"
 		/>
+		{#if $errors.firstName}
+			<p class="text-error-500">{$errors.firstName}</p>
+		{/if}
 	</label>
 
 	<label class="font-light" for="lastName">
@@ -31,6 +44,9 @@
 			value={$customerFormStore?.data?.lastName ?? ''}
 			name="lastName"
 		/>
+		{#if $errors.lastName}
+			<p class="text-error-500">{$errors.lastName}</p>
+		{/if}
 	</label>
 </div>
 <div class="flex gap-4 w-full">
@@ -43,6 +59,9 @@
 			value={$customerFormStore?.data?.address ?? ''}
 			name="address"
 		/>
+		{#if $errors.address}
+			<p class="text-error-500">{$errors.address}</p>
+		{/if}
 	</label>
 </div>
 <div class="flex gap-4 w-full">
@@ -55,6 +74,9 @@
 			value={$customerFormStore?.data?.city ?? ''}
 			name="city"
 		/>
+		{#if $errors.city}
+			<p class="text-error-500">{$errors.city}</p>
+		{/if}
 	</label>
 	<label class="font-light" for="state">
 		State:
@@ -69,13 +91,9 @@
 				<option value={state.abbreviation}>{state.name}</option>
 			{/each}
 		</select>
-		<!-- <input
-			disabled={$customerFormStore?.status !== 'editing'}
-			type="text"
-			class="input font-semibold"
-			value={$customerFormStore?.data?.state ?? ''}
-			name="state"
-		/> -->
+		{#if $errors.state}
+			<p class="text-error-500">{$errors.state}</p>
+		{/if}
 	</label>
 	<label class="font-light" for="zip">
 		Zip:
@@ -86,6 +104,9 @@
 			value={$customerFormStore?.data?.zip ?? ''}
 			name="zip"
 		/>
+		{#if $errors.zip}
+			<p class="text-error-500">{$errors.zip}</p>
+		{/if}
 	</label>
 </div>
 <div class="flex gap-4 w-full">
@@ -93,21 +114,29 @@
 		Email:
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
-			type="text"
+			type="email"
 			class="input font-semibold"
 			value={$customerFormStore?.data?.email ?? ''}
 			name="email"
 		/>
+		{#if $errors.email}
+			<p class="text-error-500">{$errors.email}</p>
+		{/if}
 	</label>
 	<label class="font-light" for="phone">
-		Phone:
+		Phone: <small>XXX-XXX-XXXX</small>
 		<input
+			bind:this={phoneInput}
 			disabled={$customerFormStore?.status !== 'editing'}
-			type="text"
+			type="tel"
 			class="input font-semibold"
 			value={$customerFormStore?.data?.phone ?? ''}
 			name="phone"
+			maxlength="12"
 		/>
+		{#if $errors.phone}
+			<p class="text-error-500">{$errors.phone}</p>
+		{/if}
 	</label>
 </div>
 {#if $customerFormStore?.status === 'editing'}

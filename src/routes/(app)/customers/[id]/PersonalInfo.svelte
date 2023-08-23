@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { afterUpdate, onDestroy, onMount, setContext } from 'svelte';
 	import type { PageData } from './$types';
-	import { applyAction, enhance } from '$app/forms';
+	import { applyAction } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
 	import EditCustomer from '../EditCustomer.svelte';
 	import { browser } from '$app/environment';
@@ -10,22 +10,24 @@
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
 	import DisplayCustomer from '../DisplayCustomer.svelte';
 	import { page } from '$app/stores';
+	import { toastStore } from '@skeletonlabs/skeleton';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data: PageData;
 
 	let editCustomerForm: HTMLFormElement;
 
-	const { customerData } = data;
+	const { customer } = data;
 
 	const customerFormStore = createFormStore({
-		data: customerData as CustomerWithTrucks,
+		data: customer as CustomerWithTrucks,
 		status: 'idle'
 	});
 
 	setContext('customerFormStore', customerFormStore);
 
 	const resetForm = async () => {
-		customerFormStore.set?.({ data: customerData as CustomerWithTrucks, status: 'idle' });
+		customerFormStore.set?.({ data: customer as CustomerWithTrucks, status: 'idle' });
 	};
 
 	const toggleEdit = () => {
@@ -33,34 +35,53 @@
 			? customerFormStore.updateStatus?.('idle')
 			: customerFormStore.updateStatus?.('editing');
 	};
+
+	const { form, errors, enhance, delayed } = superForm(data.form, {
+		invalidateAll: true,
+		resetForm: true,
+		clearOnSubmit: 'errors-and-message',
+		taintedMessage: null,
+		onSubmit: (data) => {
+			// console.log('🙆‍♀️', data);
+		},
+		onUpdate: (event) => {},
+		onError: (errors) => {
+			// toastStore.trigger({
+			// 	message: errors.result.error.message
+			// });
+		},
+		onUpdated: (event) => {
+			console.log('🙆‍♀️', event.form);
+			if (!Object.keys(event.form.errors).length) {
+				// dialog.close();
+				toastStore.trigger({
+					message: event.form.message ? event.form.message : 'Customer Updated Successfully!'
+				});
+				customerFormStore.updateFormData(event.form.data as CustomerWithTrucks);
+				customerFormStore.updateStatus?.('idle');
+				// resetCustomerList();
+			}
+		}
+	});
 </script>
 
-<section class="p-4 w-full">
+<section class="flex p-4 w-full items-start">
 	<form
 		bind:this={editCustomerForm}
 		class="flex flex-col gap-4 mb-4"
 		method="post"
-		action="?/update"
-		use:enhance={() => {
-			return async ({ result }) => {
-				if (result.type === 'success') {
-					await invalidateAll();
-
-					customerFormStore.updateFormData?.($page.data.customerData);
-					customerFormStore.updateStatus('idle');
-				}
-			};
-		}}
+		action="?/updatePersonalInfo"
+		use:enhance
 	>
 		{#if $customerFormStore?.status !== 'editing'}
 			<DisplayCustomer />
 		{/if}
 		{#if $customerFormStore?.status === 'editing'}
-			<EditCustomer {resetForm} />
+			<EditCustomer {errors} {resetForm} />
 		{/if}
 	</form>
 	{#if $customerFormStore?.status !== 'editing'}
-		<div class="flex justify-end gap-2">
+		<div class="flex justify-end gap-2 flex-auto">
 			<button class="btn btn-primary" type="button" on:click={toggleEdit}>Edit</button>
 		</div>
 	{/if}

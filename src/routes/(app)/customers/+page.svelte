@@ -2,7 +2,7 @@
 	import { createSearchStore } from '$lib/stores/search';
 	import { getContext, onDestroy, onMount, setContext } from 'svelte';
 	import type { PageData } from './$types';
-	import { enhance } from '$app/forms';
+	// import { enhance } from '$app/forms';
 	import { goto, invalidate, invalidateAll } from '$app/navigation';
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
 	import SearchIcon from '$lib/assets/icons/search.svelte';
@@ -11,6 +11,8 @@
 	import EditCustomer from './EditCustomer.svelte';
 	import { createFormStore } from '$lib/stores/form';
 	import { writable } from 'svelte/store';
+	import { toastStore } from '@skeletonlabs/skeleton';
+	import { superForm } from 'sveltekit-superforms/client';
 
 	let dialog: HTMLDialogElement;
 
@@ -30,6 +32,7 @@
 	setContext('customerFormStore', customerFormStore);
 
 	const addNewCustomer = () => {
+		createNewCustomerForm.reset();
 		customerFormStore.updateStatus?.('editing');
 		dialog.showModal();
 	};
@@ -41,7 +44,7 @@
 
 	const deleteSelectedCustomers = async () => {
 		const customerIds = $selectedCustomers.map((id) => encodeURIComponent(id)).join(',');
-		const response = await fetch(`/api/customers?ids=${customerIds}`, {
+		await fetch(`/api/customers?ids=${customerIds}`, {
 			method: 'DELETE'
 		});
 
@@ -80,9 +83,34 @@
 	const clearSearch = () => {
 		resetCustomerList();
 	};
+
+	const { form, errors, enhance, delayed } = superForm(data.form, {
+		invalidateAll: true,
+		resetForm: true,
+		clearOnSubmit: 'errors-and-message',
+		taintedMessage: null,
+		onSubmit: (data) => {
+			// console.log('🙆‍♀️', data);
+		},
+		onUpdate: (event) => {},
+		onError: (errors) => {
+			// toastStore.trigger({
+			// 	message: errors.result.error.message
+			// });
+		},
+		onUpdated: (event) => {
+			if (!Object.keys(event.form.errors).length) {
+				dialog.close();
+				toastStore.trigger({
+					message: event.form.message ? event.form.message : 'Customer Created Successfully!'
+				});
+				customerFormStore.updateStatus?.('idle');
+				resetCustomerList();
+			}
+		}
+	});
 </script>
 
-<!-- <h3 class="h3 mb-4">Customers</h3> -->
 <div class="flex justify-between items-center mb-4">
 	<form on:submit={() => getSearchedCustomers($searchStore.search)}>
 		<div class="flex w-1/3 gap-2">
@@ -120,30 +148,40 @@
 	</div>
 </div>
 <Dialog bind:dialog>
-	<form
-		bind:this={createNewCustomerForm}
-		class="flex flex-col gap-4 mb-4 p-8"
-		method="post"
-		action="?/create"
-		use:enhance={() => {
-			return async ({ result }) => {
-				if (result.type === 'success') {
-					customerFormStore.updateStatus?.('idle');
-					resetCustomerList();
-					dialog.close();
-				}
-			};
-		}}
-	>
-		<EditCustomer {resetForm} />
-	</form>
+	<div class="p-8">
+		<h3 class="h3 mb-8">Add New Customer</h3>
+		<form
+			bind:this={createNewCustomerForm}
+			class="flex flex-col gap-4 mb-4"
+			method="post"
+			action="?/create"
+			use:enhance
+		>
+			<EditCustomer {resetForm} {errors} />
+		</form>
+	</div>
 </Dialog>
 
 <div class="table-container w-full">
 	<table class="table bg-transparent">
 		<thead>
 			<tr>
-				<th></th>
+				<th>
+					<input
+						class="checkbox"
+						type="checkbox"
+						checked={$selectedCustomers.length === $searchStore.filtered.length &&
+							$selectedCustomers.length > 0}
+						on:click={(e) => {
+							const isChecked = e.currentTarget?.checked;
+							if (isChecked) {
+								selectedCustomers.set($searchStore.filtered.map((c) => c.id));
+							} else {
+								selectedCustomers.set([]);
+							}
+						}}
+					/>
+				</th>
 				<th>ID</th>
 				<th>First Name</th>
 				<th>Last Name</th>
@@ -166,6 +204,7 @@
 							<input
 								class="checkbox"
 								type="checkbox"
+								checked={$selectedCustomers.includes(customer.id)}
 								on:click={(e) => {
 									e.stopPropagation();
 									const isChecked = e.currentTarget?.checked;
