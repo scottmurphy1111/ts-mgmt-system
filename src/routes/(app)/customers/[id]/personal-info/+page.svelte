@@ -3,15 +3,15 @@
 	import type { PageData } from './$types';
 	import { applyAction } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
-	import EditCustomer from '../EditCustomer.svelte';
 	import { browser } from '$app/environment';
 	import { type FormStoreModel, createFormStore } from '$lib/stores/form';
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import DisplayCustomer from './personal-info/DisplayCustomer.svelte';
 	import { page } from '$app/stores';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
+	import DisplayCustomer from './DisplayCustomer.svelte';
+	import EditCustomer from './EditCustomer.svelte';
 
 	export let data: PageData;
 
@@ -19,6 +19,7 @@
 
 	const { customer } = data;
 
+	$: console.log('data', data);
 	const customerFormStore = createFormStore({
 		data: customer as CustomerWithTrucks,
 		status: 'idle'
@@ -66,8 +67,7 @@
 </script>
 
 <section class="flex p-4 w-full items-start">
-	<h2>Personal Info tab</h2>
-	<!-- <form
+	<form
 		bind:this={editCustomerForm}
 		class="flex flex-col gap-4 mb-4"
 		method="post"
@@ -85,5 +85,17 @@
 		<div class="flex justify-end gap-2 flex-auto">
 			<button class="btn btn-primary" type="button" on:click={toggleEdit}>Edit</button>
 		</div>
-	{/if} -->
+	{/if}
+	{#if $customerFormStore?.status === 'editing'}
+		<div class="flex justify-end gap-2 flex-auto">
+			<div class="">
+				<button class="btn btn-primary" type="submit">Save</button>
+			</div>
+			<div class="">
+				<button class="btn variant-filled-error text-white" type="button" on:click={resetForm}
+					>Cancel</button
+				>
+			</div>
+		</div>
+	{/if}
 </section>

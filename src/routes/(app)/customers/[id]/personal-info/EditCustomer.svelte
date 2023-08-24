@@ -139,7 +139,7 @@
 		{/if}
 	</label>
 </div>
-{#if $customerFormStore?.status === 'editing'}
+<!-- {#if $customerFormStore?.status === 'editing'}
 	<div class="flex justify-end gap-2">
 		<div class="">
 			<button class="btn btn-primary" type="submit">Save</button>
@@ -150,4 +150,4 @@
 			>
 		</div>
 	</div>
-{/if}
+{/if} -->

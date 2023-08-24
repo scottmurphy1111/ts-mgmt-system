@@ -13,70 +13,34 @@
 	$: console.log('page', $page);
 </script>
 
-<div class="flex gap-4 w-auto">
-	<label class="font-light flex-grow-0" for="firstName">
-		<!-- First Name: -->
-
+<div class="flex flex-col gap-2">
+	<div class="flex gap-4 w-auto">
 		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.firstName}
-		</p>
-	</label>
-
-	<label class="font-light" for="lastName">
-		<!-- Last Name: -->
-
-		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.lastName}
 		</p>
-	</label>
-</div>
-<div class="flex gap-4 w-full">
-	<label class="font-light" for="address">
-		<!-- Address: -->
-
+	</div>
+	<div class="flex gap-4 w-full">
 		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.address}
 		</p>
-	</label>
-</div>
-<div class="flex gap-4 w-full">
-	<label class="font-light flex-grow-0" for="city">
-		<!-- City: -->
-
+	</div>
+	<div class="flex gap-4 w-full">
 		<p class="text-md font-semibold">
-			{$customerFormStore?.data?.city}
-		</p>
-	</label>
-	<label class="font-light flex-grow-0" for="state">
-		<!-- State: -->
-
-		<p class="text-md font-semibold">
-			{$customerFormStore?.data?.state}
-		</p>
-	</label>
-	<label class="font-light" for="zip">
-		<!-- Zip: -->
-
-		<p class="text-md font-semibold">
+			{$customerFormStore?.data?.city}, {$customerFormStore?.data?.state}
 			{$customerFormStore?.data?.zip}
 		</p>
-	</label>
-</div>
-<div class="flex gap-4 w-full">
-	<label class="font-light flex-grow-0" for="email">
-		<!-- Email: -->
-
+	</div>
+	<div class="flex gap-4 w-full">
 		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.email}
 		</p>
-	</label>
-	<label class="font-light" for="phone">
-		<!-- Phone: -->
-
+	</div>
+	<div class="flex gap-4 w-full">
 		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.phone}
 		</p>
-	</label>
+	</div>
 </div>
 <!-- <h4 class="text-lg font-semibold mb-4">Trucks</h4>
 <div class="flex gap-4 w-full">

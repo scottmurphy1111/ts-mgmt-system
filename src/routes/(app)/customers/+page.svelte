@@ -8,11 +8,11 @@
 	import SearchIcon from '$lib/assets/icons/search.svelte';
 	import CloseIcon from '$lib/assets/icons/close.svelte';
 	import Dialog from '$lib/components/Dialog.svelte';
-	import EditCustomer from './EditCustomer.svelte';
 	import { createFormStore } from '$lib/stores/form';
 	import { writable } from 'svelte/store';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
+	import EditCustomer from './[id]/personal-info/EditCustomer.svelte';
 
 	let dialog: HTMLDialogElement;
 
@@ -69,7 +69,7 @@
 	};
 
 	const goToCustomer = (id: string) => {
-		goto(`/customers/${id}`);
+		goto(`/customers/${id}/personal-info`);
 	};
 
 	const processTruckData = (customer: CustomerWithTrucks) => {
@@ -158,6 +158,18 @@
 			use:enhance
 		>
 			<EditCustomer {resetForm} {errors} />
+			<!-- {#if $customerFormStore?.status === 'editing'} -->
+			<div class="flex justify-end gap-2">
+				<div class="">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+				<div class="">
+					<button class="btn variant-filled-error text-white" type="button" on:click={resetForm}
+						>Cancel</button
+					>
+				</div>
+			</div>
+			<!-- {/if} -->
 		</form>
 	</div>
 </Dialog>

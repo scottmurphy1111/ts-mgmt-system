@@ -79,10 +79,10 @@ model Truck {
   vin               String                  @unique
   startMiles        String?
   customers         Customer[]
-  currentCustomerId String?                 @unique
+  currentCustomerId String?
   producerId        String?
   producers         Producer?               @relation(fields: [producerId], references: [id])
-  dutyType          DutyType?
+  dutyType          DutyType                @default(HEAVY)
   programsEnrolled  TruckProgramsEnrolled[]
   // lender           Lender[]
 

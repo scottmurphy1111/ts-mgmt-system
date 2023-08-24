@@ -5,10 +5,10 @@
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
 	import { TabGroup, Tab, toastStore, TabAnchor } from '@skeletonlabs/skeleton';
-	import PersonalInfo from './PersonalInfo.svelte';
+	// import PersonalInfo from './PersonalInfo.svelte';
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
-	import Trucks from './Trucks.svelte';
+	// import Trucks from './Trucks.svelte';
 
 	export let data: PageData;
 
@@ -33,28 +33,36 @@
 	</h3>
 </div>
 <TabGroup>
-	<!-- <TabAnchor
+	<TabAnchor
 		href={`/customers/${$page.data.customer.id}/personal-info`}
-		selected={tab === 0}
+		selected={$page.url.pathname === `/customers/${$page.data.customer.id}/personal-info`}
 		bind:group={tab}
 		name="Personal Info"
 		value={0}>Personal Info</TabAnchor
 	>
-	<Tab bind:group={tab} name="Trucks Info" value={1}>Trucks</Tab>
-	<Tab bind:group={tab} name="Lender" value={2}>Lender</Tab>
-
-	<svelte:fragment slot="panel">
-		{#if tab === 0}
-			<PersonalInfo {data} />
-		{:else if tab === 1}
-			<Trucks trucks={customer?.trucks} />
-		{:else if tab === 2}
+	<TabAnchor
+		href={`/customers/${$page.data.customer.id}/trucks`}
+		selected={$page.url.pathname === `/customers/${$page.data.customer.id}/trucks`}
+		bind:group={tab}
+		name="Trucks Info"
+		value={1}>Trucks</TabAnchor
+	>
+</TabGroup>
+<!-- <Tab bind:group={tab} name="Lender" value={2}>Lender</Tab> -->
+<slot />
+<!-- <svelte:fragment slot="panel" /> -->
+<!-- <svelte:fragment slot="panel"> -->
+<!-- {#if tab === 0} -->
+<!-- <PersonalInfo {data} /> -->
+<!-- {:else if tab === 1} -->
+<!-- <Trucks trucks={customer?.trucks} /> -->
+<!-- {:else if tab === 2}
 			<h2>Lender</h2>
 		{:else}
 			<h2>Other</h2>
-		{/if}
-	</svelte:fragment> -->
-	<!-- <form
+		{/if} -->
+<!-- </svelte:fragment> -->
+<!-- <form
 				bind:this={editCustomerForm}
 				class="flex flex-col gap-4 mb-4"
 				method="post"
@@ -77,4 +85,4 @@
 					<EditCustomer {resetForm} />
 				{/if}
 			</form> -->
-</TabGroup>
+<!-- </TabGroup> -->

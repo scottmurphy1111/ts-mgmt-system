@@ -48,7 +48,7 @@
 			<li>
 				<a
 					class="inline-flex h-8 w-full gap-2 items-center"
-					class:active={$page.url.pathname.includes(item.link)}
+					class:active={$page.url.pathname.startsWith(item.link)}
 					href={item.link}
 				>
 					<svelte:component this={item.icon} />

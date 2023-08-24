@@ -36,6 +36,7 @@ export const customerPersonalInfoSchema = z.object({
 });
 
 export const truckInfoSchema = z.object({
+	id: z.string({ required_error: 'Id is required' }),
 	year: z
 		.string({ required_error: 'Year is required' })
 		.min(4, { message: 'Year must be at least 4 characters' })
@@ -62,8 +63,5 @@ export const truckInfoSchema = z.object({
 		.min(1, { message: 'Start Miles is required' })
 		.max(100, { message: 'Start Miles must be less than 100 characters' })
 		.trim(),
-	dutyType: z
-		.enum(['MEDIUM', 'HEAVY'])
-		.transform((val) => val.toUpperCase())
-		.default('HEAVY')
+	dutyType: z.enum(['MEDIUM', 'HEAVY']).default('HEAVY')
 });
