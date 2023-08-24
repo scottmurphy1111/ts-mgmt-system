@@ -3,7 +3,6 @@
 	import type { PageData } from './$types';
 	import { applyAction } from '$app/forms';
 	import { invalidate, invalidateAll } from '$app/navigation';
-	import EditCustomer from '../EditCustomer.svelte';
 	import { browser } from '$app/environment';
 	import { type FormStoreModel, createFormStore } from '$lib/stores/form';
 
