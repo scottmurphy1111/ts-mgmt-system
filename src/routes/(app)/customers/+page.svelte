@@ -13,6 +13,7 @@
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 	import EditCustomer from './[id]/personal-info/EditCustomer.svelte';
+	import { NULL } from '$lib/const/Null';
 
 	let dialog: HTMLDialogElement;
 
@@ -113,12 +114,12 @@
 
 <div class="flex justify-between items-center mb-4">
 	<form on:submit={() => getSearchedCustomers($searchStore.search)}>
-		<div class="flex w-1/3 gap-2">
+		<div class="flex w-full gap-2">
 			<input
-				class="input min-w-[300px] pr-8"
+				class="input min-w-[400px] pr-8"
 				type="text"
 				name="search"
-				placeholder="Search by Last Name"
+				placeholder="Search by Last Name / Company Name"
 				bind:value={$searchStore.search}
 				on:keyup={(e) => {
 					if (e.key === 'Escape') {
@@ -197,6 +198,7 @@
 				<th>ID</th>
 				<th>First Name</th>
 				<th>Last Name</th>
+				<th>Company Name</th>
 				<th>Email</th>
 				<th>Phone</th>
 				<th>Address</th>
@@ -233,6 +235,7 @@
 						<td>{customer.id}</td>
 						<td>{customer.firstName}</td>
 						<td>{customer.lastName}</td>
+						<td>{@html customer.companyName ? customer.companyName : NULL}</td>
 						<td>{customer.email}</td>
 						<td>{customer.phone}</td>
 						<td>{customer.address}</td>

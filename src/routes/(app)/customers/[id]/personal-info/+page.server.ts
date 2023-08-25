@@ -27,6 +27,7 @@ export const load: PageServerLoad = async (event) => {
 export const actions: Actions = {
 	updatePersonalInfo: async (event) => {
 		const form = await superValidate(event, customerPersonalInfoSchema);
+		console.log('🥶', form);
 
 		if (!form.valid) {
 			return message(form, 'Customer Data is Invalid, Try Again!');

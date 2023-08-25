@@ -1,16 +1,9 @@
 import { z } from 'zod';
 
 export const customerPersonalInfoSchema = z.object({
-	firstName: z
-		.string({ required_error: 'First Name is required' })
-		.min(1, { message: 'First Name is required' })
-		.max(100, { message: 'First Name must be less than 100 characters' })
-		.trim(),
-	lastName: z
-		.string({ required_error: 'Last Name is required' })
-		.min(1, { message: 'Last Name is required' })
-		.max(100, { message: 'Last Name must be less than 100 characters' })
-		.trim(),
+	firstName: z.string().trim(),
+	lastName: z.string().trim(),
+	companyName: z.string().trim(),
 	address: z
 		.string({ required_error: 'Address is required' })
 		.min(1, { message: 'Address is required' })

@@ -18,6 +18,7 @@
 		<p class="text-md font-semibold">
 			{$customerFormStore?.data?.firstName}
 			{$customerFormStore?.data?.lastName}
+			{$customerFormStore?.data?.companyName}
 		</p>
 	</div>
 	<div class="flex gap-4 w-full">

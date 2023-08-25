@@ -48,6 +48,19 @@
 			<p class="text-error-500">{$errors.lastName}</p>
 		{/if}
 	</label>
+	<label class="font-light" for="companyName">
+		Company Name:
+		<input
+			disabled={$customerFormStore?.status !== 'editing'}
+			type="text"
+			class="input font-semibold"
+			value={$customerFormStore?.data?.companyName ?? ''}
+			name="companyName"
+		/>
+		{#if $errors.companyName}
+			<p class="text-error-500">{$errors.companyName}</p>
+		{/if}
+	</label>
 </div>
 <div class="flex gap-4 w-full">
 	<label class="font-light" for="address">

@@ -12,11 +12,13 @@
 	<div class="flex flex-wrap gap-4">
 		<a
 			href="/customers"
-			class=" card-hover card shadow-md bg-secondary-to-primary-300-600-token p-8 flex flex-col gap-4 w-96"
+			class="card card-hover shadow-md bg-secondary-to-primary-300-600-token p-8 flex flex-col gap-4 w-96"
 			data-sveltekit-preload-data="tap"
 		>
 			<header>
-				<h3 class="flex gap-2 h3"><svelte:component this={ServerIcon} />TS Mgmt System</h3>
+				<h3 class="flex gap-2 h3 items-center">
+					<svelte:component this={ServerIcon} />TS Mgmt System
+				</h3>
 			</header>
 			<section>
 				<p>Manage Customer Info</p>
@@ -27,10 +29,12 @@
 		</a>
 		<a href="/" class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96">
 			<header>
-				<h3 class="flex gap-2 h3"><svelte:component this={ProducersIcon} />TS Lead System</h3>
+				<h3 class="flex gap-2 h3 items-center">
+					<svelte:component this={ProducersIcon} />TS Lead System
+				</h3>
 			</header>
 			<section>
-				<p>Generate New/Potential Customers</p>
+				<p>Manage Potential Customers</p>
 			</section>
 			<footer>
 				<button class="btn btn-primary">Launch</button>
@@ -39,11 +43,11 @@
 
 		{#if data.role === 'ADMIN'}
 			<a
-				href="/admin/users"
+				href="/admin"
 				class="card card-hover shadow-md bg-secondary-to-primary-300-600-token p-8 flex flex-col gap-4 w-96"
 			>
 				<header>
-					<h3 class="flex gap-2 h3"><svelte:component this={UnlockIcon} />TS Admin</h3>
+					<h3 class="flex gap-2 h3 items-center"><svelte:component this={UnlockIcon} />TS Admin</h3>
 				</header>
 				<section>
 					<p>Manage Users</p>
@@ -55,10 +59,7 @@
 		{/if}
 	</div>
 </div>
-<!-- <p>Id: {data.userId}</p>
-<p>name: {data.name}</p>
-<p>email: {data.email}</p>
-<p>role: {data.role}</p> -->
-<form method="post" action="?/logout" use:enhance>
+
+<!-- <form method="post" action="?/logout" use:enhance>
 	<input type="submit" value="Sign out" />
-</form>
+</form> -->

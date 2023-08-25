@@ -25,7 +25,9 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch ring-surface-100-900-token />
-				<UserSettings userData={data} />
+				{#if Object.values(data)[0]?.length}
+					<UserSettings userData={data} />
+				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>

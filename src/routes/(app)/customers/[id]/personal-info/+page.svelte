@@ -68,6 +68,7 @@
 
 <section class="flex p-4 w-full items-start">
 	<form
+		id="editCustomerForm"
 		bind:this={editCustomerForm}
 		class="flex flex-col gap-4 mb-4"
 		method="post"
@@ -89,7 +90,7 @@
 	{#if $customerFormStore?.status === 'editing'}
 		<div class="flex justify-end gap-2 flex-auto">
 			<div class="">
-				<button class="btn btn-primary" type="submit">Save</button>
+				<button form="editCustomerForm" class="btn btn-primary" type="submit">Save</button>
 			</div>
 			<div class="">
 				<button class="btn variant-filled-error text-white" type="button" on:click={resetForm}

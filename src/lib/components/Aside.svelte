@@ -5,6 +5,7 @@
 	import ProgramsIcon from '$lib/assets/icons/programs.svelte';
 	import SalesRepsIcon from '$lib/assets/icons/salesReps.svelte';
 	import ReportsIcon from '$lib/assets/icons/reports.svelte';
+	import SettingsIcon from '$lib/assets/icons/settings.svelte';
 
 	let items = [
 		{
@@ -43,7 +44,7 @@
 </script>
 
 <div class="shadow-md w-64 h-full p-4 bg-white dark:bg-surface-900 z-10">
-	<ul class="m-0 p-0 flex flex-col gap-2 list-none">
+	<ul class="m-0 p-0 flex flex-col gap-2 list-none h-full">
 		{#each items as item}
 			<li>
 				<a
@@ -57,6 +58,19 @@
 				</a>
 			</li>
 		{/each}
+		{#if $page.data.role === 'ADMIN'}
+			<li class="mt-auto">
+				<a
+					class="inline-flex h-8 w-full gap-2 items-center"
+					class:active={$page.url.pathname.startsWith('/admin')}
+					href="/admin"
+				>
+					<svelte:component this={SettingsIcon} />
+
+					<span class="text-style-md title">Admin</span>
+				</a>
+			</li>
+		{/if}
 	</ul>
 </div>
 
