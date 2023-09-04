@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
@@ -6,7 +7,7 @@ const transporter = nodemailer.createTransport({
 	secure: false,
 	auth: {
 		user: 'apikey',
-		pass: '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'
+		pass: env.SENDGRID_API_KEY
 	}
 });
 
