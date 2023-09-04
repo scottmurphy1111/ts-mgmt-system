@@ -14,8 +14,6 @@
 		placement: 'bottom-end'
 	};
 
-	export let userData: Partial<User>;
-
 	//this doesn't work
 	const logout = async () => {
 		await fetch('/api/logout', {
@@ -46,6 +44,9 @@
 		<p>
 			Role {$page.data.role}
 		</p>
+		<a href="/password-reset" class="underline text-primary-500 hover:text-primary-800"
+			>Change Password</a
+		>
 		<button class="btn btn-primary" on:click={logout}>Logout</button>
 		<!-- <form method="post" action="?/logout" use:enhance>
       <input type="submit" value="Sign out" />

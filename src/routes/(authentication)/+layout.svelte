@@ -14,6 +14,7 @@
 	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
 
 	export let data: LayoutData;
+	$: console.log('data', data);
 </script>
 
 <Toast />
@@ -36,9 +37,7 @@
 			<img src={logo} alt="ts-logo" class="w-full block dark:hidden" />
 			<img src={logoDark} alt="ts-logo" class="w-full hidden dark:block" />
 		</div>
-		{#if data.name}
-			<h3 class="h3">Welcome {`${data.name.charAt(0).toUpperCase()}${data.name.slice(1)}`}</h3>
-		{/if}
+
 		<slot />
 	</div>
 </AppShell>>

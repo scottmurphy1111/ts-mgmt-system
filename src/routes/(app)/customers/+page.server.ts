@@ -1,10 +1,9 @@
-import { client } from '$lib/server/prisma';
-import type { Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-
-import { message, superValidate } from 'sveltekit-superforms/server';
 import { Prisma } from '@prisma/client';
-import { customerPersonalInfoSchema } from './[id]/customer.schema';
+import type { Actions } from '@sveltejs/kit';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import type { PageServerLoad } from './$types';
+import { customerPersonalInfoSchema } from './customer.schema';
+import { client } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async (event) => {
 	// gets initial customer data

@@ -6,6 +6,8 @@ import { LuciaError } from 'lucia';
 import { Prisma } from '@prisma/client';
 import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { sendEmailVerificationLink } from '$lib/server/email';
+import { generateEmailVerificationToken } from '$lib/server/token';
 
 const signupSchema = z
 	.object({
@@ -19,6 +21,7 @@ const signupSchema = z
 			.min(1, { message: 'Email is required' })
 			.max(100, { message: 'Email must be less than 100 characters' })
 			.email({ message: 'Email must be a valid email address' }),
+		emailVerified: z.boolean(),
 		password: z
 			.string({ required_error: 'Password is required' })
 			.min(6, { message: 'Password must be at least 6 characters' })
@@ -46,8 +49,10 @@ const signupSchema = z
 	});
 export const load: PageServerLoad = async (event) => {
 	const session = await event.locals.auth.validate();
-	if (session) throw redirect(302, '/');
-
+	if (session) {
+		if (!session.user.emailVerified) throw redirect(302, '/email-verification');
+		throw redirect(302, '/');
+	}
 	const form = await superValidate(event, signupSchema);
 	return { form };
 };
@@ -66,6 +71,7 @@ export const actions: Actions = {
 					},
 					attributes: {
 						email: form.data.email.toString().toLowerCase(),
+						email_verified: false,
 						name: form.data.name.toString(),
 						role: 'VIEWER'
 					}
@@ -74,6 +80,9 @@ export const actions: Actions = {
 					userId: user.userId,
 					attributes: {}
 				});
+
+				const token = await generateEmailVerificationToken(user.userId);
+				await sendEmailVerificationLink(form.data.email, token);
 
 				event.locals.auth.setSession(session);
 				throw redirect(302, '/launch');

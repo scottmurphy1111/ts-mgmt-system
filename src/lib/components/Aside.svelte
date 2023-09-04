@@ -81,7 +81,6 @@
 			display: block;
 			width: 5px;
 			height: 24px;
-			/* background-color: rgba(var(--color-primary-500) / 0.5); */
 			margin-left: -1rem;
 			margin-right: calc(1rem - 5px);
 		}

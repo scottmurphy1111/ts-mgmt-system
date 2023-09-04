@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import { ProgressBar, toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-	import type { ActionResult } from '@sveltejs/kit';
+
 	export let data;
 
 	const errorToast: ToastSettings = {

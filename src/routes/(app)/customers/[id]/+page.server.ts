@@ -1,6 +1,6 @@
 import { client } from '$lib/server/prisma';
 import { message, superValidate } from 'sveltekit-superforms/server';
-import { customerPersonalInfoSchema, truckInfoSchema } from './customer.schema';
+import { customerPersonalInfoSchema, truckInfoSchema } from '../customer.schema';
 import type { Actions, PageServerLoad } from './$types';
 import { Prisma } from '@prisma/client';
 

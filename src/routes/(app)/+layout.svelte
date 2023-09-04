@@ -38,7 +38,7 @@
 	<svelte:fragment slot="sidebarLeft">
 		<Aside />
 	</svelte:fragment>
-	<div class="p-4">
+	<div class="p-8">
 		<slot />
 	</div>
 </AppShell>

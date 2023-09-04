@@ -8,6 +8,10 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
 	if (!session) throw redirect(302, '/login');
+	if (!session.user.emailVerified) {
+		throw redirect(302, '/email-verification');
+	}
+
 	// 	return {
 	// 		userId: session.user.userId,
 	// 		name: session.user.name,

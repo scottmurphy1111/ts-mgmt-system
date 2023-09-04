@@ -26,7 +26,8 @@
 	let tab: number = 0;
 </script>
 
-<div class="flex justify-between mb-4">
+<div class="flex flex-col justify-between mb-4">
+	<a class="text-primary-500 hover:text-primary-700" href="/customers">&lt; Back</a>
 	<h3 class="h3">
 		{$page.data.customer.firstName}
 		{$page.data.customer.lastName} - Cust Id# {$page.data.customer.id}

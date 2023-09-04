@@ -8,6 +8,9 @@
 	export let data: PageData;
 </script>
 
+{#if data.name}
+	<h3 class="h3">Welcome {`${data.name.charAt(0).toUpperCase()}${data.name.slice(1)}`}</h3>
+{/if}
 <div class="h-full p-24">
 	<div class="flex flex-wrap gap-4">
 		<a

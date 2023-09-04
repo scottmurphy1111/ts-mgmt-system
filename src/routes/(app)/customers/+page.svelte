@@ -16,11 +16,9 @@
 	import { NULL } from '$lib/const/Null';
 
 	let dialog: HTMLDialogElement;
-
 	let createNewCustomerForm: HTMLFormElement;
 
 	export let data: PageData;
-
 	const { customers } = data;
 
 	const searchStore = createSearchStore(customers);
@@ -43,6 +41,15 @@
 		dialog?.close();
 	};
 
+	const resetCustomerList = async () => {
+		await invalidateAll();
+		searchStore.set({
+			data: data.customers,
+			filtered: data.customers,
+			search: ''
+		});
+	};
+
 	const deleteSelectedCustomers = async () => {
 		const customerIds = $selectedCustomers.map((id) => encodeURIComponent(id)).join(',');
 		await fetch(`/api/customers?ids=${customerIds}`, {
@@ -51,15 +58,6 @@
 
 		await resetCustomerList();
 		selectedCustomers.set([]);
-	};
-
-	const resetCustomerList = async () => {
-		await invalidateAll();
-		searchStore.set({
-			data: data.customers,
-			filtered: data.customers,
-			search: ''
-		});
 	};
 
 	const selectedCustomers = writable<string[]>([]);
@@ -176,7 +174,7 @@
 </Dialog>
 
 <div class="table-container w-full">
-	<table class="table bg-transparent">
+	<table class="table bg-transparent dark:bg-transparent">
 		<thead>
 			<tr>
 				<th>

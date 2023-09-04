@@ -12,12 +12,13 @@ datasource db {
 }
 
 model User {
-  id           String    @id @unique
-  email        String    @unique
-  name         String
-  auth_session Session[]
-  key          Key[]
-  role         Role      @default(VIEWER)
+  id             String    @id @unique
+  email          String    @unique
+  email_verified Boolean   @default(false)
+  name           String
+  auth_session   Session[]
+  key            Key[]
+  role           Role      @default(VIEWER)
 }
 
 model Session {
@@ -35,6 +36,22 @@ model Key {
   hashed_password String?
   user_id         String
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model EmailVerificationToken {
+  id      String
+  expires BigInt @id
+  user_id String
+
+  @@index([user_id])
+}
+
+model PasswordResetToken {
+  id      String
+  expires BigInt @id
+  user_id String
 
   @@index([user_id])
 }
@@ -61,6 +78,7 @@ model Customer {
   country     String    @default("USA")
   trucks      Truck[]
   producer    Producer? @relation(fields: [producerId], references: [id])
+  isFleet     Boolean   @default(false)
 
   // programsEnrolled Program[]
   // lender           Lender[]
@@ -110,18 +128,18 @@ enum DutyType {
 }
 
 model Producer {
-  id           String     @id @default(uuid())
-  createdAt    DateTime   @default(now())
-  taxId        String
-  companyName  String
-  dba          String
-  address      String
-  city         String
-  state        String
-  zip          String
-  country      String     @default("USA")
-  website      String
-  isFleet      Boolean    @default(false)
+  id          String   @id @default(uuid())
+  createdAt   DateTime @default(now())
+  taxId       String
+  companyName String
+  dba         String
+  address     String
+  city        String
+  state       String
+  zip         String
+  country     String   @default("USA")
+  website     String
+
   trucks       Truck[]
   customers    Customer[]
   isMediumDuty Boolean    @default(false)

@@ -54,7 +54,7 @@
 					name="password"
 				/>
 			</label>
-			{#if $errors.email}
+			{#if $errors.password}
 				<p class="text-error-500">{$errors.password}</p>
 			{/if}
 
