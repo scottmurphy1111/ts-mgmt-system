@@ -72,9 +72,9 @@
 			// });
 		},
 		onUpdated: (event) => {
-			console.log('🙆‍♀️', event.form);
-			console.log('🙆‍♀️ form', form);
-			console.log('page programs', $page.data.programs);
+			// console.log('🙆‍♀️', event.form);
+			// console.log('🙆‍♀️ form', form);
+			// console.log('page programs', $page.data.programs);
 			if (!Object.keys(event.form.errors).length) {
 				dialog.close();
 				toastStore.trigger({
@@ -89,7 +89,7 @@
 	});
 
 	// $: console.log('🙆‍♀️ refresh', $programFormStore.data);
-	$: console.log('🙆‍♀️ programs', programs);
+	// $: console.log('🙆‍♀️ programs', programs);
 </script>
 
 <div class="flex justify-between gap-2 mb-4">

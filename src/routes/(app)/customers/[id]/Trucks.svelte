@@ -8,7 +8,7 @@
 		status: 'idle'
 	});
 
-	$: console.log('trucks', $truckFormStore);
+	// $: console.log('trucks', $truckFormStore);
 
 	const updateTruckInfo = async (truckId: string) => {
 		const truckInfo = $truckFormStore.data.find((truck: any) => truck.id === truckId);
@@ -20,7 +20,7 @@
 			body: JSON.stringify(truckInfo)
 		});
 		const data = await res.json();
-		console.log(data);
+		// console.log(data);
 	};
 </script>
 

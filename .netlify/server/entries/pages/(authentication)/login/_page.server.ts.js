@@ -9,8 +9,11 @@ const loginSchema = z.object({
 });
 const load = async (event) => {
   const session = await event.locals.auth.validate();
-  if (session)
+  if (session) {
+    if (!session.user.emailVerified)
+      throw redirect(302, "/email-verification");
     throw redirect(302, "/");
+  }
   const form = await superValidate(event, loginSchema);
   return { form };
 };
@@ -32,7 +35,7 @@ const actions = {
       });
       event.locals.auth.setSession(session);
     } catch (e) {
-      if (e instanceof LuciaError) {
+      if (e instanceof LuciaError && (e.message === "AUTH_INVALID_KEY_ID" || e.message === "AUTH_INVALID_PASSWORD")) {
         return message(form, "Credentials Invalid, Try Again!");
       }
       if (e instanceof Prisma.PrismaClientKnownRequestError) {

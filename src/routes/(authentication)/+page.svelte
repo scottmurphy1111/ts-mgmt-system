@@ -12,7 +12,7 @@
 	<h3 class="h3">Welcome {`${data.name.charAt(0).toUpperCase()}${data.name.slice(1)}`}</h3>
 {/if}
 <div class="h-full p-24">
-	<div class="flex flex-wrap gap-4">
+	<div class="flex flex-wrap gap-4 justify-center items-center">
 		<a
 			href="/customers"
 			class="card card-hover shadow-md bg-secondary-to-primary-300-600-token p-8 flex flex-col gap-4 w-96"

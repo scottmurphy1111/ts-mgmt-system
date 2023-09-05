@@ -1,7 +1,8 @@
 import { c as create_ssr_component, s as subscribe, v as validate_component, a as add_attribute, e as escape } from "../../../../chunks/ssr.js";
-import { s as superForm, P as ProgressBar } from "../../../../chunks/index3.js";
+import { s as superForm } from "../../../../chunks/index3.js";
 import { t as toastStore } from "../../../../chunks/stores2.js";
 import "../../../../chunks/ProgressBar.svelte_svelte_type_style_lang.js";
+import { P as ProgressBar } from "../../../../chunks/ProgressBar.js";
 const Page = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let $delayed, $$unsubscribe_delayed;
   let $errors, $$unsubscribe_errors;

@@ -4,9 +4,21 @@ const GET = async (req) => {
   const searchTerm = req.url.searchParams.get("search");
   const searchedCustomers = await client.customer.findMany({
     where: {
-      lastName: {
-        contains: searchTerm?.toString() || ""
-      }
+      OR: [
+        {
+          companyName: {
+            contains: searchTerm?.toString()
+          }
+        },
+        {
+          lastName: {
+            contains: searchTerm?.toString()
+          }
+        }
+      ]
+      // companyName: {
+      // 	contains: searchTerm?.toString()
+      // }
     },
     include: {
       trucks: true

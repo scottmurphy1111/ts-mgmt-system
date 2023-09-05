@@ -25,7 +25,7 @@
 		});
 	};
 
-	$: console.log('$page', $page);
+	// $: console.log('$page', $page);
 </script>
 
 <div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white" use:popup={userSettings}>

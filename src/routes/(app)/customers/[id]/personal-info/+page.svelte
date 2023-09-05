@@ -19,7 +19,7 @@
 
 	const { customer } = data;
 
-	$: console.log('data', data);
+	// $: console.log('data', data);
 	const customerFormStore = createFormStore({
 		data: customer as CustomerWithTrucks,
 		status: 'idle'
@@ -52,7 +52,7 @@
 			// });
 		},
 		onUpdated: (event) => {
-			console.log('🙆‍♀️', event.form);
+			// console.log('🙆‍♀️', event.form);
 			if (!Object.keys(event.form.errors).length) {
 				// dialog.close();
 				toastStore.trigger({

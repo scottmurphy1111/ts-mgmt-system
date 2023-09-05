@@ -56,7 +56,7 @@
 			// });
 		},
 		onUpdated: (event) => {
-			console.log('🙆‍♀️', event.form);
+			// console.log('🙆‍♀️', event.form);
 			if (!Object.keys(event.form.errors).length) {
 				// dialog.close();
 				toastStore.trigger({

@@ -9,8 +9,8 @@
 		getContext<Writable<FormStoreModel<CustomerWithTrucks>>>('customerFormStore');
 	// export let resetForm: () => void;
 
-	$: console.log('store', $customerFormStore);
-	$: console.log('page', $page);
+	// $: console.log('store', $customerFormStore);
+	// $: console.log('page', $page);
 </script>
 
 <div class="flex flex-col gap-2">

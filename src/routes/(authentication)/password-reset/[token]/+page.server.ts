@@ -25,11 +25,6 @@ const passwordResetSchema = z
 			ctx.addIssue({
 				code: 'custom',
 				message: 'Passwords do not match',
-				path: ['password']
-			});
-			ctx.addIssue({
-				code: 'custom',
-				message: 'Passwords do not match',
 				path: ['passwordConfirm']
 			});
 		}
@@ -44,24 +39,29 @@ export const actions: Actions = {
 	default: async ({ request, params, locals }) => {
 		const form = await superValidate(request, passwordResetSchema);
 
+		console.log('form', form);
+		if (!form.valid) {
+			return message(form, 'Form Invalid');
+		}
+
 		try {
-			if (!form.valid) {
-				const { token } = params;
-				const userId = await validatePasswordResetToken(token);
-				let user = await auth.getUser(userId);
-				await auth.invalidateAllUserSessions(user.userId);
-				await auth.updateKeyPassword('email', user.email, form.data.password);
-				if (!user.emailVerified) {
-					user = await auth.updateUserAttributes(user.userId, {
-						email_verified: true
-					});
-				}
-				const session = await auth.createSession({
-					userId: user.userId,
-					attributes: {}
+			const { token } = params;
+			const userId = await validatePasswordResetToken(token);
+			let user = await auth.getUser(userId);
+			await auth.invalidateAllUserSessions(user.userId);
+			await auth.updateKeyPassword('email', user.email, form.data.password);
+			if (!user.emailVerified) {
+				user = await auth.updateUserAttributes(user.userId, {
+					email_verified: true
 				});
-				locals.auth.setSession(session);
 			}
+			const session = await auth.createSession({
+				userId: user.userId,
+				attributes: {}
+			});
+			locals.auth.setSession(session);
+
+			// return { form };
 		} catch (e) {
 			if (e instanceof LuciaError) {
 				return message(form, 'Credentials Invalid, Try Again!');

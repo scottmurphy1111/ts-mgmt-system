@@ -52,7 +52,7 @@ export const actions: Actions = {
 	// 	};
 	// }
 	updateTruckInfo: async (event) => {
-		console.log('updateTruckInfo', event);
+		// console.log('updateTruckInfo', event);
 		const form = await superValidate(event, truckInfoSchema);
 
 		if (!form.valid) {

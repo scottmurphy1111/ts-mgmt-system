@@ -1,10 +1,10 @@
-import * as server from '../entries/pages/(authentication)/login/_page.server.ts.js';
+import * as server from '../entries/pages/(app)/customers/_id_/trucks/_page.server.ts.js';
 
 export const index = 16;
 let component_cache;
-export const component = async () => component_cache ??= (await import('../entries/pages/(authentication)/login/_page.svelte.js')).default;
+export const component = async () => component_cache ??= (await import('../entries/pages/(app)/customers/_id_/trucks/_page.svelte.js')).default;
 export { server };
-export const server_id = "src/routes/(authentication)/login/+page.server.ts";
-export const imports = ["_app/immutable/nodes/16.67080285.js","_app/immutable/chunks/scheduler.33a0ffd3.js","_app/immutable/chunks/index.d420ef29.js","_app/immutable/chunks/index.0d0e9125.js","_app/immutable/chunks/ProgressBar.svelte_svelte_type_style_lang.0714b5e7.js","_app/immutable/chunks/paths.8c540dc7.js","_app/immutable/chunks/navigation.a5e0928e.js","_app/immutable/chunks/singletons.34b04365.js","_app/immutable/chunks/stores.d96e6017.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/forms.fbdacf27.js","_app/immutable/chunks/stores.72850bdb.js"];
+export const server_id = "src/routes/(app)/customers/[id]/trucks/+page.server.ts";
+export const imports = ["_app/immutable/nodes/16.502164ff.js","_app/immutable/chunks/scheduler.e738ec2c.js","_app/immutable/chunks/index.90039f23.js","_app/immutable/chunks/each.3bdf1519.js","_app/immutable/chunks/form.fd91f2fe.js","_app/immutable/chunks/singletons.d4806386.js","_app/immutable/chunks/paths.78b93b07.js","_app/immutable/chunks/stores.c1c69f85.js","_app/immutable/chunks/ProgressBar.svelte_svelte_type_style_lang.865debac.js","_app/immutable/chunks/index.da815903.js","_app/immutable/chunks/navigation.1ecd5e00.js","_app/immutable/chunks/stores.cb731360.js","_app/immutable/chunks/parse.7d180a0f.js","_app/immutable/chunks/forms.495c9139.js","_app/immutable/chunks/index.4b134ea6.js"];
 export const stylesheets = ["_app/immutable/assets/ProgressBar.4f1e9ba5.css"];
 export const fonts = [];

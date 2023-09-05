@@ -40,9 +40,11 @@ export const actions: Actions = {
 			}
 			const user = auth.transformDatabaseUser(storedUser);
 			const token = await generatePasswordResetToken(user.userId);
-			await sendPasswordResetLink(form.data.email, token);
+			const sendReset = await sendPasswordResetLink(form.data.email, token);
 
-			return { form };
+			console.log('sendReset', sendReset);
+
+			return { sendReset, form };
 		} catch (e) {
 			if (e instanceof Prisma.PrismaClientKnownRequestError) {
 				return message(form, 'Internal Server Error');

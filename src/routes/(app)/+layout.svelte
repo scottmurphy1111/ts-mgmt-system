@@ -31,7 +31,7 @@
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
 				<LightSwitch />
-				<UserSettings userData={data} />
+				<UserSettings />
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>

@@ -17,7 +17,7 @@
 	// });
 
 	// onDestroy(() => {});
-	console.log($customerFormStore);
+	// console.log($customerFormStore);
 </script>
 
 <div class="flex gap-4 w-full">

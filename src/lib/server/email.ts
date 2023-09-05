@@ -19,8 +19,8 @@ const sendEmailVerify = (email: string, url: string) => {
 		html: `<a href="${url}">Click here to verify your email</a>`
 	};
 
-	transporter.sendMail(requestOptions).then((info) => {
-		console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info));
+	return transporter.sendMail(requestOptions).then((info) => {
+		// console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info));
 	});
 };
 
@@ -32,9 +32,7 @@ const sendEmailPasswordReset = (email: string, url: string) => {
 		html: `<a href="${url}">Click here to change your password</a>`
 	};
 
-	transporter.sendMail(requestOptions).then((info) => {
-		console.log('Preview URL: ' + nodemailer.getTestMessageUrl(info));
-	});
+	return transporter.sendMail(requestOptions);
 };
 
 export const sendEmailVerificationLink = async (email: string, token: string) => {
@@ -44,5 +42,5 @@ export const sendEmailVerificationLink = async (email: string, token: string) =>
 
 export const sendPasswordResetLink = async (email: string, token: string) => {
 	const url = `http://localhost:5173/password-reset/${token}`;
-	await sendEmailPasswordReset(email, url);
+	return await sendEmailPasswordReset(email, url);
 };

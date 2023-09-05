@@ -14,7 +14,6 @@
 	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
 
 	export let data: LayoutData;
-	$: console.log('data', data);
 </script>
 
 <Toast />
@@ -27,15 +26,17 @@
 			<svelte:fragment slot="trail">
 				<LightSwitch ring-surface-100-900-token />
 				{#if Object.values(data)[0]?.length}
-					<UserSettings userData={data} />
+					<UserSettings />
 				{/if}
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
 	<div class="h-full w-full flex flex-col justify-start items-center p-12">
 		<div class="flex gap-4 justify-center items-center mb-8">
-			<img src={logo} alt="ts-logo" class="w-full block dark:hidden" />
-			<img src={logoDark} alt="ts-logo" class="w-full hidden dark:block" />
+			<a href="/">
+				<img src={logo} alt="ts-logo" class="w-full block dark:hidden" />
+				<img src={logoDark} alt="ts-logo" class="w-full hidden dark:block" />
+			</a>
 		</div>
 
 		<slot />

@@ -1,7 +1,8 @@
 import { w as writable } from "./index2.js";
-import { c as create_ssr_component, e as escape, a as add_attribute, j as compute_slots, s as subscribe, d as each } from "./ssr.js";
+import { c as create_ssr_component, e as escape, a as add_attribute, f as compute_slots, s as subscribe, b as each } from "./ssr.js";
 import { m as modeCurrent, s as setInitialClassState } from "./ProgressBar.svelte_svelte_type_style_lang.js";
 import { t as toastStore } from "./stores2.js";
+import { p as page } from "./stores.js";
 const theme = "";
 const skeleton = "";
 const app = "";
@@ -276,11 +277,11 @@ const css = {
   map: null
 };
 const UserSettings = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-  let { userData } = $$props;
-  if ($$props.userData === void 0 && $$bindings.userData && userData !== void 0)
-    $$bindings.userData(userData);
+  let $page, $$unsubscribe_page;
+  $$unsubscribe_page = subscribe(page, (value) => $page = value);
   $$result.css.add(css);
-  return `<div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white svelte-147zf7w" data-svelte-h="svelte-1s02qg7"><img${add_attribute("src", userIcon, 0)} alt="user"></div> <div class="card flex flex-col p-4" data-popup="userSettings">${escape(userData.name)} ${escape(userData.email)} <button class="btn btn-primary" data-svelte-h="svelte-1r6wit4">Logout</button>  </div>`;
+  $$unsubscribe_page();
+  return `<div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white svelte-147zf7w" data-svelte-h="svelte-1s02qg7"><img${add_attribute("src", userIcon, 0)} alt="user"></div> <div class="card w-80" data-popup="userSettings"><div class="flex flex-col p-4 gap-4"><h3 class="h3" data-svelte-h="svelte-2koira">Current User</h3> <p>Name: ${escape($page.data.name)}</p> <p>Email: ${escape($page.data.email)}</p> <p>Role ${escape($page.data.role)}</p> <a href="/password-reset" class="underline text-primary-500 hover:text-primary-800" data-svelte-h="svelte-c7ifji">Change Password</a> <button class="btn btn-primary" data-svelte-h="svelte-1r6wit4">Logout</button> </div> </div>`;
 });
 const logo = "/_app/immutable/assets/ts-logo.652c5fb0.svg";
 const logoDark = "/_app/immutable/assets/ts-logo-dark.2c638a74.svg";

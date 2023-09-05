@@ -1,8 +1,19 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
+	import type { ActionData } from './$types';
 	export let data;
+	export let form: ActionData;
 
-	const { form, errors, enhance, message, delayed, constraints } = superForm(data.form, {
+	// $: console.log('data', data);
+	// $: console.log('form', form);
+	const {
+		form: resetForm,
+		errors,
+		enhance,
+		message,
+		delayed,
+		constraints
+	} = superForm(data.form, {
 		clearOnSubmit: 'errors-and-message',
 		taintedMessage: null
 	});
@@ -22,9 +33,6 @@
 				type="password"
 			/>
 		</label>
-		{#if $errors.password}
-			<p class="text-error-500">{$errors.password}</p>
-		{/if}
 		<label class="label" for="passwordConfirm">
 			Confirm Password
 			<input
