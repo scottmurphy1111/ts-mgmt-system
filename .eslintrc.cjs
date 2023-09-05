@@ -4,9 +4,7 @@ module.exports = {
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
 		'plugin:svelte/recommended',
-		'prettier',
-		'plugin:import/errors',
-		'plugin:import/warnings'
+		'prettier'
 	],
 	ignorePatterns: ['*.cjs'],
 	parser: '@typescript-eslint/parser',

@@ -1,12 +1,14 @@
-import { auth } from '$lib/server/lucia';
+import { Prisma } from '@prisma/client';
 import { redirect } from '@sveltejs/kit';
-import { z } from 'zod';
 import type { Actions } from '@sveltejs/kit';
 import { LuciaError } from 'lucia';
-import { Prisma } from '@prisma/client';
-import type { PageServerLoad } from './$types';
 import { message, superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
+
+import type { PageServerLoad } from './$types';
+
 import { sendEmailVerificationLink } from '$lib/server/email';
+import { auth } from '$lib/server/lucia';
 import { generateEmailVerificationToken } from '$lib/server/token';
 
 const signupSchema = z
@@ -38,11 +40,6 @@ const signupSchema = z
 			ctx.addIssue({
 				code: 'custom',
 				message: 'Passwords do not match',
-				path: ['password']
-			});
-			ctx.addIssue({
-				code: 'custom',
-				message: 'Passwords do not match',
 				path: ['passwordConfirm']
 			});
 		}
@@ -58,35 +55,36 @@ export const load: PageServerLoad = async (event) => {
 };
 
 export const actions: Actions = {
-	default: async (event) => {
-		const form = await superValidate(event, signupSchema);
+	default: async ({ request, locals }) => {
+		const form = await superValidate(request, signupSchema);
+
+		if (!form.valid) {
+			return message(form, 'Form Invalid');
+		}
 
 		try {
-			if (form.valid) {
-				const user = await auth.createUser({
-					key: {
-						providerId: 'email',
-						providerUserId: form.data.email.toString().toLowerCase(),
-						password: form.data.password.toString()
-					},
-					attributes: {
-						email: form.data.email.toString().toLowerCase(),
-						email_verified: false,
-						name: form.data.name.toString(),
-						role: 'VIEWER'
-					}
-				});
-				const session = await auth.createSession({
-					userId: user.userId,
-					attributes: {}
-				});
+			const user = await auth.createUser({
+				key: {
+					providerId: 'email',
+					providerUserId: form.data.email.toString().toLowerCase(),
+					password: form.data.password.toString()
+				},
+				attributes: {
+					email: form.data.email.toString().toLowerCase(),
+					email_verified: false,
+					name: form.data.name.toString(),
+					role: 'VIEWER'
+				}
+			});
+			const session = await auth.createSession({
+				userId: user.userId,
+				attributes: {}
+			});
 
-				const token = await generateEmailVerificationToken(user.userId);
-				await sendEmailVerificationLink(form.data.email, token);
+			const token = await generateEmailVerificationToken(user.userId);
+			await sendEmailVerificationLink(form.data.email, token);
 
-				event.locals.auth.setSession(session);
-				throw redirect(302, '/launch');
-			}
+			locals.auth.setSession(session);
 		} catch (e) {
 			if (e instanceof LuciaError) {
 				return message(form, 'Credentials Invalid, Try Again!');
@@ -102,5 +100,7 @@ export const actions: Actions = {
 
 			return { form };
 		}
+
+		throw redirect(302, '/');
 	}
 };

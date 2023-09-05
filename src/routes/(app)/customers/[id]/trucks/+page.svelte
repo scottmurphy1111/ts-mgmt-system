@@ -62,7 +62,8 @@
 				toastStore.trigger({
 					message: event.form.message ? event.form.message : 'Customer Updated Successfully!'
 				});
-				truckFormStore.updateFormData(event.form.data);
+				// bring this back when ts errors fixed
+				// truckFormStore.updateFormData(event.form.data);
 				truckFormStore.updateStatus?.('idle');
 				// resetCustomerList();
 			}

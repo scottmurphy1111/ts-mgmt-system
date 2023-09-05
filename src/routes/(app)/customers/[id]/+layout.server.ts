@@ -1,8 +1,11 @@
-import { client } from '$lib/server/prisma';
-import { message, superValidate } from 'sveltekit-superforms/server';
-import { customerPersonalInfoSchema, truckInfoSchema } from '../customer.schema';
-import type { Actions, LayoutServerLoad } from './$types';
 import { Prisma } from '@prisma/client';
+import { message, superValidate } from 'sveltekit-superforms/server';
+
+import { customerPersonalInfoSchema, truckInfoSchema } from '../customer.schema';
+
+import type { Actions, LayoutServerLoad } from './$types';
+
+import { client } from '$lib/server/prisma';
 
 export const load: LayoutServerLoad = async (event) => {
 	const getCustomerWithTrucks = async () => {

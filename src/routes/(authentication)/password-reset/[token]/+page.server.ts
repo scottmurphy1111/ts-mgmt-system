@@ -1,11 +1,13 @@
-import { auth } from '$lib/server/lucia';
-import { fail, redirect } from '@sveltejs/kit';
-import { z } from 'zod';
-import type { Actions } from './$types';
-import { validatePasswordResetToken } from '$lib/server/token';
-import { message, superValidate } from 'sveltekit-superforms/server';
 import { Prisma } from '@prisma/client';
+import { redirect } from '@sveltejs/kit';
 import { LuciaError } from 'lucia';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
+
+import type { Actions } from './$types';
+
+import { auth } from '$lib/server/lucia';
+import { validatePasswordResetToken } from '$lib/server/token';
 
 const passwordResetSchema = z
 	.object({
@@ -39,7 +41,6 @@ export const actions: Actions = {
 	default: async ({ request, params, locals }) => {
 		const form = await superValidate(request, passwordResetSchema);
 
-		console.log('form', form);
 		if (!form.valid) {
 			return message(form, 'Form Invalid');
 		}
@@ -60,8 +61,6 @@ export const actions: Actions = {
 				attributes: {}
 			});
 			locals.auth.setSession(session);
-
-			// return { form };
 		} catch (e) {
 			if (e instanceof LuciaError) {
 				return message(form, 'Credentials Invalid, Try Again!');
