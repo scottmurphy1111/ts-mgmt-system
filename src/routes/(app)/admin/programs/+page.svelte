@@ -29,7 +29,7 @@
 	// });
 
 	const resetProgramList = async () => {
-		// await invalidateAll();
+		await invalidateAll();
 		// programFormStore.updateFormData?.($page.data.programs);
 	};
 
@@ -53,7 +53,7 @@
 			method: 'DELETE'
 		});
 
-		await resetProgramList();
+		await invalidateAll();
 		selectedPrograms.set([]);
 	};
 

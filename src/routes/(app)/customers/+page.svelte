@@ -3,7 +3,7 @@
 	import { getContext, onDestroy, onMount, setContext } from 'svelte';
 	import type { PageData } from './$types';
 	// import { enhance } from '$app/forms';
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
 	import SearchIcon from '$lib/assets/icons/search.svelte';
 	import CloseIcon from '$lib/assets/icons/close.svelte';

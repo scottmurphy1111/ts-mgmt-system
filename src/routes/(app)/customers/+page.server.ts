@@ -1,8 +1,10 @@
 import { Prisma } from '@prisma/client';
 import type { Actions } from '@sveltejs/kit';
 import { message, superValidate } from 'sveltekit-superforms/server';
+
 import type { PageServerLoad } from './$types';
 import { customerPersonalInfoSchema } from './customer.schema';
+
 import { client } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async (event) => {

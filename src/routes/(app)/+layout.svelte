@@ -14,6 +14,8 @@
 	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
 
 	export let data: LayoutData;
+
+	console.log('data', data);
 </script>
 
 <Toast />

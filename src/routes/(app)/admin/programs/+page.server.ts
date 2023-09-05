@@ -1,9 +1,11 @@
-import { client } from '$lib/server/prisma';
-import type { Actions } from '@sveltejs/kit';
-import type { PageServerLoad } from './$types';
-import { message, superValidate } from 'sveltekit-superforms/server';
 import { Prisma } from '@prisma/client';
+import type { Actions } from '@sveltejs/kit';
+import { message, superValidate } from 'sveltekit-superforms/server';
+
+import type { PageServerLoad } from './$types';
 import { programSchema } from './programs.schema';
+
+import { client } from '$lib/server/prisma';
 
 export const load: PageServerLoad = async (event) => {
 	const getPrograms = async () => {
@@ -23,7 +25,6 @@ export const actions: Actions = {
 	create: async (event) => {
 		const form = await superValidate(event, programSchema);
 
-		console.log('🥵', form);
 		if (!form.valid) {
 			return message(form, 'Program Data is Invalid, Try Again!');
 		}

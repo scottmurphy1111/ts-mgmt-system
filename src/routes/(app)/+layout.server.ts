@@ -1,5 +1,8 @@
 import { redirect } from '@sveltejs/kit';
+
 import type { LayoutServerLoad } from './$types';
+
+import { env } from '$env/dynamic/private';
 
 export const load: LayoutServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
@@ -13,6 +16,7 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		id: session.user.userId,
 		name: session.user.name,
 		email: session.user.email,
-		role: session.user.role
+		role: session.user.role,
+		env: env.NODE_ENV
 	};
 };
