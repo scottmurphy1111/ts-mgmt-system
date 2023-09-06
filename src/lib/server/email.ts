@@ -1,5 +1,7 @@
-import { env } from '$env/dynamic/private';
 import nodemailer from 'nodemailer';
+
+import { env } from '$env/dynamic/private';
+import { APP_DOMAIN } from '$lib/const/constants';
 
 const transporter = nodemailer.createTransport({
 	host: 'smtp.sendgrid.net',
@@ -36,11 +38,11 @@ const sendEmailPasswordReset = (email: string, url: string) => {
 };
 
 export const sendEmailVerificationLink = async (email: string, token: string) => {
-	const url = `http://localhost:5173/email-verification/${token}`;
+	const url = `${APP_DOMAIN()}/email-verification/${token}`;
 	await sendEmailVerify(email, url);
 };
 
 export const sendPasswordResetLink = async (email: string, token: string) => {
-	const url = `http://localhost:5173/password-reset/${token}`;
+	const url = `${APP_DOMAIN()}/password-reset/${token}`;
 	return await sendEmailPasswordReset(email, url);
 };
