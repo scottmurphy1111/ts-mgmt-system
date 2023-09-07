@@ -1,11 +1,12 @@
-import { auth } from '$lib/server/lucia';
+import { Prisma } from '@prisma/client';
 import { redirect } from '@sveltejs/kit';
+import { LuciaError } from 'lucia';
+import { message, superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
 
 import type { PageServerLoad, Actions } from './$types';
-import { z } from 'zod';
-import { LuciaError } from 'lucia';
-import { Prisma } from '@prisma/client';
-import { message, superValidate } from 'sveltekit-superforms/server';
+
+import { auth } from '$lib/server/lucia';
 
 const loginSchema = z.object({
 	email: z

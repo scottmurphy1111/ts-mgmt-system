@@ -1,5 +1,6 @@
-import { auth } from '$lib/server/lucia';
 import { type RequestHandler, json } from '@sveltejs/kit';
+
+import { auth } from '$lib/server/lucia';
 
 export const POST: RequestHandler = async (req) => {
 	const session = await req.locals.auth.validate();

@@ -1,6 +1,7 @@
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 
 import type { PageServerLoad } from './$types';
+
 import { sendEmailVerificationLink } from '$lib/server/email';
 import { generateEmailVerificationToken } from '$lib/server/token';
 

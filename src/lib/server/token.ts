@@ -1,5 +1,6 @@
-import { client } from './prisma';
 import { generateRandomString, isWithinExpiration } from 'lucia/utils';
+
+import { client } from './prisma';
 
 const EXPIRES_IN = 1000 * 60 * 60 * 2; // 2 hours
 

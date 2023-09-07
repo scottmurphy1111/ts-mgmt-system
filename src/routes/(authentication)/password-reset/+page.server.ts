@@ -1,13 +1,14 @@
-import { auth } from '$lib/server/lucia';
+import { Prisma } from '@prisma/client';
 import { fail } from '@sveltejs/kit';
-import { generatePasswordResetToken } from '$lib/server/token';
-import { sendPasswordResetLink } from '$lib/server/email';
+import { message, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
 import type { PageServerLoad, Actions } from './$types';
-import { message, superValidate } from 'sveltekit-superforms/server';
+
+import { sendPasswordResetLink } from '$lib/server/email';
+import { auth } from '$lib/server/lucia';
 import { client } from '$lib/server/prisma';
-import { Prisma } from '@prisma/client';
+import { generatePasswordResetToken } from '$lib/server/token';
 
 const passwordResetSchema = z.object({
 	email: z

@@ -1,5 +1,6 @@
-import { client } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
+
+import { client } from '$lib/server/prisma';
 
 export const POST: RequestHandler = async (req) => {
 	const truckId = req.url.searchParams.get('truckId');

@@ -1,7 +1,7 @@
+import type { RequestHandler } from './$types';
+
 import { auth } from '$lib/server/lucia';
 import { validateEmailVerificationToken } from '$lib/server/token';
-
-import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async ({ params, locals }) => {
 	const { token } = params;

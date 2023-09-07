@@ -199,3 +199,9 @@
 		</tbody>
 	</table>
 </div>
+
+<style>
+	tr {
+		cursor: pointer;
+	}
+</style>

@@ -2,8 +2,10 @@
 // import { usersTable } from '$lib/server/schema';
 
 import { redirect, type Actions, fail } from '@sveltejs/kit';
-import { auth } from '$lib/server/lucia';
+
 import type { PageServerLoad } from './$types';
+
+import { auth } from '$lib/server/lucia';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();

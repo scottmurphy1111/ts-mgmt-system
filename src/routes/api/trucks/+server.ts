@@ -1,5 +1,6 @@
-import { client } from '$lib/server/prisma';
 import { json, type RequestHandler } from '@sveltejs/kit';
+
+import { client } from '$lib/server/prisma';
 
 export const GET: RequestHandler = async (req) => {
 	const searchTerm = req.url.searchParams.get('search');

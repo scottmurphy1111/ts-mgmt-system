@@ -193,6 +193,11 @@ model SalesRep {
   producer   Producer? @relation(fields: [producerId], references: [id])
   firstName  String
   lastName   String
+  address    String
+  city       String
+  state      String
+  zip        String
+  country    String    @default("USA")
   phone      String
   email      String
   company    String
