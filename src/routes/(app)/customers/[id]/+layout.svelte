@@ -4,7 +4,7 @@
 	import { createFormStore } from '$lib/stores/form';
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import { TabGroup, Tab, toastStore, TabAnchor } from '@skeletonlabs/skeleton';
+	import { TabGroup, Tab, getToastStore, TabAnchor } from '@skeletonlabs/skeleton';
 	// import PersonalInfo from './PersonalInfo.svelte';
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
@@ -13,6 +13,8 @@
 	export let data: PageData;
 
 	const { customer } = data;
+
+	const toastStore = getToastStore();
 
 	// console.log('customer', customer);
 
@@ -41,11 +43,11 @@
 		value={0}>Personal Info</TabAnchor
 	>
 	<TabAnchor
-		href={`/customers/${$page.data.customer.id}/trucks`}
-		selected={$page.url.pathname === `/customers/${$page.data.customer.id}/trucks`}
+		href={`/customers/${$page.data.customer.id}/trucks-programs`}
+		selected={$page.url.pathname === `/customers/${$page.data.customer.id}/trucks-programs`}
 		bind:group={tab}
 		name="Trucks Info"
-		value={1}>Trucks</TabAnchor
+		value={1}>Trucks / Programs</TabAnchor
 	>
 </TabGroup>
 <!-- <Tab bind:group={tab} name="Lender" value={2}>Lender</Tab> -->

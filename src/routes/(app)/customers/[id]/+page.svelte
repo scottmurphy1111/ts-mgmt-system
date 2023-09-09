@@ -4,7 +4,7 @@
 	import { createFormStore } from '$lib/stores/form';
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import { TabGroup, Tab, toastStore, TabAnchor } from '@skeletonlabs/skeleton';
+	import { TabGroup, Tab, getToastStore, TabAnchor } from '@skeletonlabs/skeleton';
 	import PersonalInfo from './PersonalInfo.svelte';
 	import { page } from '$app/stores';
 	import { superForm } from 'sveltekit-superforms/client';
@@ -13,6 +13,8 @@
 	export let data: PageData;
 
 	const { customer } = data;
+
+	const toastStore = getToastStore();
 
 	// console.log('customer', customer);
 

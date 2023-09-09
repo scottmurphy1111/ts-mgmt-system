@@ -42,7 +42,7 @@
 			<button class="btn btn-primary">Launch</button>
 		</footer>
 	</a>
-	<a class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96" href="/admin/roles">
+	<!-- <a class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96" href="/admin/roles">
 		<header>
 			<h3 class="flex gap-2 h3 items-center"><svelte:component this={HatIcon} />Roles</h3>
 		</header>
@@ -52,7 +52,7 @@
 		<footer>
 			<button class="btn btn-primary">Launch</button>
 		</footer>
-	</a>
+	</a> -->
 </div>
 <!-- <div class="card p-8 flex gap-4 w-full">
 	<div class="flex flex-col gap-4">

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../theme.postcss';
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
+
 	import '../app.postcss';
 	import { page } from '$app/stores';
 	import Aside from '$lib/components/Aside.svelte';

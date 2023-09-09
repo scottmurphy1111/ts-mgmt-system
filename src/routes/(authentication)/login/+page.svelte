@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { ProgressBar, toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { ProgressBar, getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	export let data;
 
+	const toastStore = getToastStore();
 	const errorToast: ToastSettings = {
 		message: 'There was an error logging in. Please try again.'
 	};
@@ -39,6 +40,7 @@
 					class:input-error={$errors.email}
 					aria-invalid={$errors.email ? 'true' : undefined}
 					name="email"
+					type="text"
 					autocomplete="email"
 					bind:value={$form.email}
 				/>

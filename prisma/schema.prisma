@@ -116,7 +116,11 @@ model TruckProgramsEnrolled {
   truckId   String?
   truck     Truck?   @relation(fields: [truckId], references: [id])
   programId String?
+  program   Program? @relation(fields: [programId], references: [id])
   isActive  Boolean  @default(true)
+  startDate DateTime @default(now())
+  endDate   DateTime @default(now())
+  price     String   @default("0.00")
 
   @@index([truckId])
   @@index([programId])
@@ -178,10 +182,11 @@ model ProducerPersonnel {
 }
 
 model Program {
-  id          String   @id @default(uuid())
-  createdAt   DateTime @default(now())
-  name        String
-  description String
+  id                    String                  @id @default(uuid())
+  createdAt             DateTime                @default(now())
+  name                  String
+  description           String
+  TruckProgramsEnrolled TruckProgramsEnrolled[]
 
   @@index([name])
 }

@@ -1,21 +1,20 @@
 <script lang="ts">
 	import { createFormStore } from '$lib/stores/form';
-	import type { CustomerWithTrucks } from '$lib/types/customer.types';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
-	import type { PageData } from './$types';
+	import type { PageData, PageServerData } from './$types';
 	import { DutyType } from '@prisma/client';
-	export let data: PageData;
+	import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 
-	const { trucks } = data;
+	export let data: PageServerData;
 
-	const truckFormStore = createFormStore({
-		data: trucks,
-		status: 'idle'
-	});
+	const trucks = data.trucks as unknown as TrucksWithProgramsEnrolled[];
 
+	const toastStore = getToastStore();
+	$: console.log('data', data);
 	$: console.log('trucks', trucks);
-	$: console.log('trucks store', $truckFormStore);
+	// $: console.log('getPrograms', getPrograms(trucks));
+	// $: console.log('trucks store', $truckFormStore);
 
 	// const updateTruckInfo = async (truckId: string) => {
 	// 	const truckInfo = $truckFormStore.data.find((truck: any) => truck.id === truckId);
@@ -64,7 +63,7 @@
 				});
 				// bring this back when ts errors fixed
 				// truckFormStore.updateFormData(event.form.data);
-				truckFormStore.updateStatus?.('idle');
+				// truckFormStore.updateStatus?.('idle');
 				// resetCustomerList();
 			}
 		}
@@ -72,61 +71,61 @@
 </script>
 
 <div class="flex p-4 w-full items-start">
-	{#each $truckFormStore.data as truck}
+	{#each trucks as truck}
 		<form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">
 				<input hidden type="text" name="id" value={truck.id} />
-				<label class="font-light" for="vin">
+				<label class="label" for="vin">
 					VIN:
 					<input
 						type="text"
-						class="input font-semibold"
+						class="input"
 						value={truck.vin ?? ''}
 						name="vin"
 						on:change={(e) => (truck.vin = e.currentTarget.value)}
 					/>
 				</label>
-				<label class="font-light" for="year">
+				<label class="label" for="year">
 					Year:
 					<input
 						type="text"
-						class="input font-semibold"
+						class="input"
 						value={truck.year ?? ''}
 						name="year"
 						on:change={(e) => (truck.year = e.currentTarget.value)}
 					/>
 				</label>
-				<label class="font-light" for="make">
+				<label class="label" for="make">
 					Make:
 					<input
 						type="text"
-						class="input font-semibold"
+						class="input"
 						value={truck.make ?? ''}
 						name="make"
 						on:change={(e) => (truck.make = e.currentTarget.value)}
 					/>
 				</label>
-				<label class="font-light" for="model">
+				<label class="label" for="model">
 					Model:
 					<input
 						type="text"
-						class="input font-semibold"
+						class="input"
 						value={truck.model ?? ''}
 						name="model"
 						on:change={(e) => (truck.model = e.currentTarget.value)}
 					/>
 				</label>
-				<label class="font-light" for="startMiles">
+				<label class="label" for="startMiles">
 					Start Miles:
 					<input
 						type="text"
-						class="input font-semibold"
+						class="input"
 						value={truck.startMiles ?? ''}
 						name="startMiles"
 						on:change={(e) => (truck.startMiles = e.currentTarget.value)}
 					/>
 				</label>
-				<label class="font-light" for="dutyType">
+				<label class="label" for="dutyType">
 					Duty Type:
 					<select
 						class="select"
@@ -139,6 +138,17 @@
 					</select>
 				</label>
 			</div>
+			<h3 class="h3">Programs</h3>
+			{#each truck.programsEnrolled as programEnrolled}
+				<div class="flex gap-4">
+					<p>
+						{programEnrolled.program?.name}
+					</p>
+					<p>
+						{programEnrolled.program?.description}
+					</p>
+				</div>
+			{/each}
 			<div class="flex justify-end gap-2 flex-auto">
 				<button type="submit" class="btn btn-primary">Save</button>
 			</div>

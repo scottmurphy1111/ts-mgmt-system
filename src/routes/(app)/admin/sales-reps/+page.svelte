@@ -4,11 +4,9 @@
 	import type { PageData } from './$types';
 	import Dialog from '$lib/components/Dialog.svelte';
 
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
-	import { createFormStore } from '$lib/stores/form';
-	import type { SalesRep } from '@prisma/client';
-	import { page } from '$app/stores';
+	import { states } from '$lib/data/states';
 
 	let dialog: HTMLDialogElement;
 	let createNewSalesRepForm: HTMLFormElement;
@@ -16,6 +14,8 @@
 	export let data: PageData;
 
 	$: ({ salesReps } = data);
+
+	const toastStore = getToastStore();
 
 	const selectedSalesReps = writable<string[]>([]);
 
@@ -93,7 +93,7 @@
 </script>
 
 <div class="flex justify-between gap-2 mb-4">
-	<h2 class="h2">SalesReps</h2>
+	<h2 class="h2">Sales Reps</h2>
 	{#if $selectedSalesReps.length > 0}
 		<button
 			class="btn variant-filled-error ml-auto"
@@ -105,68 +105,72 @@
 </div>
 
 <Dialog bind:dialog>
-	<div class="p-8 w-96">
-		<h3 class="h3 mb-8">Add New SalesRep</h3>
+	<div class="p-8">
+		<h3 class="h3 mb-8">Add New Sales Rep</h3>
 		<form
+			class="flex flex-col gap-4"
 			bind:this={createNewSalesRepForm}
-			class="flex flex-col gap-4 mb-4"
 			method="post"
 			action="?/create"
 			use:enhance
 		>
-			<div class="flex flex-col gap-4">
-				<div class="flex flex-col gap-2">
-					<label for="firstName">First Name</label>
-					<input
-						class="input"
-						type="text"
-						name="firstName"
-						id="firstName"
-						required
-						placeholder="Enter Name"
-					/>
-					<label for="lastName">Last Name</label>
-					<input
-						class="input"
-						type="text"
-						name="lastName"
-						id="lastName"
-						required
-						placeholder="Enter Name"
-					/>
-				</div>
-				<div class="flex flex-col gap-2">
-					<label for="address">Address</label>
-					<input
-						class="input"
-						type="text"
-						name="address"
-						id="address"
-						required
-						placeholder="Enter Name"
-					/>
-				</div>
-				<div class="flex flex-col gap-2">
-					<label for="city">City</label>
-					<input
-						class="input"
-						type="text"
-						name="city"
-						id="city"
-						required
-						placeholder="Enter Name"
-					/>
-				</div>
-				<div class="flex flex-col gap-2">
-					<label for="description">Description</label>
-					<textarea
-						class="input"
-						name="description"
-						id="description"
-						required
-						placeholder="Enter Description"
-					></textarea>
-				</div>
+			<div class="flex gap-4 w-full">
+				<label class="label" for="firstName"
+					>First Name
+					<input class="input" type="text" name="firstName" id="firstName" />
+				</label>
+				<label class="label" for="lastName"
+					>Last Name
+					<input class="input" type="text" name="lastName" id="lastName" />
+				</label>
+				<label class="label" for="company"
+					>Company
+					<input class="input" type="text" name="company" id="company" />
+				</label>
+			</div>
+			<div class="flex gap-4 w-full">
+				<label class="label" for="address"
+					>Address
+					<input class="input" type="text" name="address" id="address" />
+				</label>
+			</div>
+			<div class="flex gap-4 w-full">
+				<label class="label" for="city"
+					>City
+					<input class="input" type="text" name="city" id="city" />
+				</label>
+				<label class="label" for="state">
+					State:
+					<select class="select" name="state">
+						<option value="" selected disabled hidden>Select State</option>
+						{#each states as state}
+							<option value={state.abbreviation}>{state.name}</option>
+						{/each}
+					</select>
+					{#if $errors.state}
+						<p class="text-error-500">{$errors.state}</p>
+					{/if}
+				</label>
+				<label class="label" for="zip"
+					>Zip
+					<input class="input" type="text" name="zip" id="zip" />
+				</label>
+			</div>
+			<div class="flex gap-4 w-full">
+				<label class="label" for="email">
+					Email:
+					<input type="email" class="input" name="email" />
+					{#if $errors.email}
+						<p class="text-error-500">{$errors.email}</p>
+					{/if}
+				</label>
+				<label class="label" for="phone">
+					Phone: <small>XXX-XXX-XXXX</small>
+					<input type="tel" class="input" name="phone" maxlength="12" />
+					{#if $errors.phone}
+						<p class="text-error-500">{$errors.phone}</p>
+					{/if}
+				</label>
 			</div>
 			<div class="flex justify-end gap-2">
 				<div class="">
@@ -217,7 +221,7 @@
 		</thead>
 		<tbody>
 			{#each salesReps as salesRep}
-				<tr on:click={() => goToSalesRep(salesRep.id)}>
+				<tr class="cursor-pointer" on:click={() => goToSalesRep(salesRep.id)}>
 					<td>
 						<input
 							class="checkbox"
@@ -253,9 +257,3 @@
 		</tbody>
 	</table>
 </div>
-
-<style>
-	tr {
-		cursor: pointer;
-	}
-</style>

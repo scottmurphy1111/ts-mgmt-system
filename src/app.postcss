@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind variants;
+
 /* Write your global styles here, in PostCSS syntax */
 @font-face {
 	/* Reference name */
@@ -39,7 +44,13 @@ td {
 }
 
 label {
-	@apply text-base font-semibold text-surface-900 dark:text-surface-100 flex-auto;
+	@apply text-base font-light text-surface-900 dark:text-surface-100 flex-auto;
+}
+
+input,
+select,
+textarea {
+	@apply text-base font-medium text-surface-900 dark:text-surface-100 flex-auto;
 }
 
 dialog {

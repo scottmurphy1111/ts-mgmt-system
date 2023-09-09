@@ -10,7 +10,6 @@
 		getContext<Writable<FormStoreModel<CustomerWithTrucks>>>('customerFormStore');
 	export let resetForm: () => void;
 	export let errors: any;
-	let phoneInput: HTMLInputElement;
 
 	// onMount(() => {
 	// 	formatPhoneInput(phoneInput);
@@ -26,7 +25,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.firstName ?? ''}
 			name="firstName"
 		/>
@@ -40,7 +39,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.lastName ?? ''}
 			name="lastName"
 		/>
@@ -53,7 +52,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.companyName ?? ''}
 			name="companyName"
 		/>
@@ -68,7 +67,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.address ?? ''}
 			name="address"
 		/>
@@ -83,7 +82,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.city ?? ''}
 			name="city"
 		/>
@@ -113,7 +112,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="text"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.zip ?? ''}
 			name="zip"
 		/>
@@ -128,7 +127,7 @@
 		<input
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="email"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.email ?? ''}
 			name="email"
 		/>
@@ -139,10 +138,9 @@
 	<label class="font-light" for="phone">
 		Phone: <small>XXX-XXX-XXXX</small>
 		<input
-			bind:this={phoneInput}
 			disabled={$customerFormStore?.status !== 'editing'}
 			type="tel"
-			class="input font-semibold"
+			class="input"
 			value={$customerFormStore?.data?.phone ?? ''}
 			name="phone"
 			maxlength="12"

@@ -13,7 +13,13 @@ export const load: PageServerLoad = async (event) => {
 		const customers = await client.customer.findMany({
 			include: {
 				trucks: true
-			}
+			},
+			skip: event.url.searchParams.get('skip')
+				? Number(event.url.searchParams.get('skip'))
+				: undefined,
+			take: event.url.searchParams.get('take')
+				? Number(event.url.searchParams.get('take'))
+				: undefined
 		});
 
 		return customers;

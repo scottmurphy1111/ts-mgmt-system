@@ -28,7 +28,10 @@
 	// $: console.log('$page', $page);
 </script>
 
-<div class="badge-icon variant-filled-white p-1 w-7 h-7 dark:bg-white" use:popup={userSettings}>
+<div
+	class="badge-icon cursor-pointer variant-filled-white p-1 w-7 h-7 dark:bg-white"
+	use:popup={userSettings}
+>
 	<img src={userIcon} alt="user" />
 </div>
 
@@ -49,13 +52,7 @@
 		>
 		<button class="btn btn-primary" on:click={logout}>Logout</button>
 		<!-- <form method="post" action="?/logout" use:enhance>
-      <input type="submit" value="Sign out" />
+      class="input" type="submit" value="Sign out" />
     </form> -->
 	</div>
 </div>
-
-<style>
-	.badge-icon {
-		cursor: pointer;
-	}
-</style>

@@ -1,13 +1,15 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData } from './$types';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 
 	const { salesRep } = data;
+
+	const toastStore = getToastStore();
 
 	const { form, errors, enhance, delayed } = superForm(data.form, {
 		invalidateAll: true,

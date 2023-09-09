@@ -4,7 +4,7 @@
 	import type { PageData } from './$types';
 	import Dialog from '$lib/components/Dialog.svelte';
 
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 	import { createFormStore } from '$lib/stores/form';
 	import type { Program } from '@prisma/client';
@@ -12,6 +12,8 @@
 
 	let dialog: HTMLDialogElement;
 	let createNewProgramForm: HTMLFormElement;
+
+	const toastStore = getToastStore();
 
 	export let data: PageData;
 
@@ -107,7 +109,7 @@
 		<h3 class="h3 mb-8">Add New Program</h3>
 		<form
 			bind:this={createNewProgramForm}
-			class="flex flex-col gap-4 mb-4"
+			class="flex flex-col gap-4"
 			method="post"
 			action="?/create"
 			use:enhance
@@ -174,7 +176,7 @@
 		</thead>
 		<tbody>
 			{#each programs as program}
-				<tr on:click={() => goToProgram(program.id)}>
+				<tr class="cursor-pointer" on:click={() => goToProgram(program.id)}>
 					<td>
 						<input
 							class="checkbox"
@@ -199,9 +201,3 @@
 		</tbody>
 	</table>
 </div>
-
-<style>
-	tr {
-		cursor: pointer;
-	}
-</style>

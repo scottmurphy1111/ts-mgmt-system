@@ -63,7 +63,7 @@
 		</thead>
 		<tbody>
 			{#each $searchStore.filtered as truck}
-				<tr on:click={() => goToTruck(truck.id)}>
+				<tr class="cursor-pointer" on:click={() => goToTruck(truck.id)}>
 					<td>{truck.vin}</td>
 					<td>{truck.year}</td>
 					<td>{truck.make}</td>
@@ -75,9 +75,3 @@
 		</tbody>
 	</table>
 </div>
-
-<style>
-	tr {
-		cursor: pointer;
-	}
-</style>

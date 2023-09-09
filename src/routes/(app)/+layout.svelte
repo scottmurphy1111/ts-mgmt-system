@@ -1,6 +1,5 @@
 <script lang="ts">
 	import '../../theme.postcss';
-	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../../app.postcss';
 	import { AppBar, AppShell, LightSwitch, Toast } from '@skeletonlabs/skeleton';
 	import type { LayoutData } from './$types';
@@ -12,6 +11,9 @@
 
 	import logo from '$lib/assets/images/ts-logo.svg';
 	import logoDark from '$lib/assets/images/ts-logo-dark.svg';
+	import { initializeStores } from '@skeletonlabs/skeleton';
+
+	initializeStores();
 
 	export let data: LayoutData;
 

@@ -30,7 +30,7 @@
 				<button class="btn btn-primary">Launch</button>
 			</footer>
 		</a>
-		<a href="/" class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96">
+		<a href="/lead-system" class="card card-hover shadow-md p-8 flex flex-col gap-4 w-96">
 			<header>
 				<h3 class="flex gap-2 h3 items-center">
 					<svelte:component this={ProducersIcon} />TS Lead System

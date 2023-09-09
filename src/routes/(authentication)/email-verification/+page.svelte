@@ -10,6 +10,6 @@
 	</p>
 
 	<form method="post" use:enhance>
-		<input class="btn btn-primary cursor-pointer" type="submit" value="Resend" />
+		<button class="btn btn-primary cursor-pointer" type="submit" value="Resend" />
 	</form>
 </div>

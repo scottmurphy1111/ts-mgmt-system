@@ -8,7 +8,7 @@
 
 	import type { CustomerWithTrucks } from '$lib/types/customer.types';
 	import { page } from '$app/stores';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 	import DisplayCustomer from './DisplayCustomer.svelte';
 	import EditCustomer from './EditCustomer.svelte';
@@ -18,6 +18,8 @@
 	let editCustomerForm: HTMLFormElement;
 
 	const { customer } = data;
+
+	const toastStore = getToastStore();
 
 	// $: console.log('data', data);
 	const customerFormStore = createFormStore({

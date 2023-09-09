@@ -7,12 +7,28 @@ import { truckInfoSchema } from '../../customer.schema';
 import type { PageServerLoad } from './$types';
 
 import { client } from '$lib/server/prisma';
+import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 
 export const load: PageServerLoad = async (event) => {
+	const getPrograms = async (trucks: TrucksWithProgramsEnrolled[]) => {
+		// return trucks.map(async (truck) => {
+		// 	const res = await event.fetch(`/api/trucks/${truck.id}/programs`);
+		// 	const data = await res.json();
+		// 	console.log('data', data);
+		// 	return data;
+		// });
+	};
 	const getCustomerTrucks = async () => {
 		const trucks = await client.truck.findMany({
 			where: {
 				currentCustomerId: event.params.id
+			},
+			include: {
+				programsEnrolled: {
+					include: {
+						program: true
+					}
+				}
 			}
 		});
 
