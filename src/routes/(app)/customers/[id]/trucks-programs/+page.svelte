@@ -6,6 +6,8 @@
 	import { DutyType } from '@prisma/client';
 	import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 	import AddTruckIcon from '$lib/assets/icons/addTruck.svelte';
+	import EditIcon from '$lib/assets/icons/edit.svelte';
+	import DeleteIcon from '$lib/assets/icons/delete.svelte';
 	import format from 'date-fns/format';
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
 	import { enUS } from 'date-fns/locale';
@@ -128,7 +130,17 @@
 										<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
 										<td>${programEnrolled.price}</td>
 										<td>{programEnrolled.isActive}</td>
-										<td>Edit | Delete</td>
+										<td>
+											<div class="flex gap-2 items-center">
+												<div class="text-xl text-gray-700 dark:text-gray-100">
+													<svelte:component this={EditIcon} />
+												</div>
+
+												<div class="text-lg text-gray-700 dark:text-gray-100">
+													<svelte:component this={DeleteIcon} />
+												</div>
+											</div></td
+										>
 									</tr>
 								{/each}
 							</tbody>
