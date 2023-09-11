@@ -123,7 +123,6 @@ model TruckProgramsEnrolled {
   price     String   @default("0.00")
 
   @@index([truckId])
-  @@index([programId])
 }
 
 enum DutyType {
@@ -185,6 +184,7 @@ model Program {
   id                    String                  @id @default(uuid())
   createdAt             DateTime                @default(now())
   name                  String
+  term                  String                  @default("")
   description           String
   TruckProgramsEnrolled TruckProgramsEnrolled[]
 
