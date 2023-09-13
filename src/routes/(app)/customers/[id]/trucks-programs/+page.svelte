@@ -15,7 +15,7 @@
 	export let data: PageServerData;
 	let dialog: HTMLDialogElement;
 
-	let programs: Program[] = [];
+	let programs = writable<Program[]>([]);
 	const trucks = data.trucks as unknown as TrucksWithProgramsEnrolled[];
 
 	const toastStore = getToastStore();
@@ -112,7 +112,7 @@
 <Dialog bind:dialog>
 	<div class="w-[600px] p-8">
 		<h3 class="h3 mb-8">Add Program</h3>
-		{#each programs as program}
+		{#each $programs as program}
 			<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
 				<header class="flex gap-4">
 					<h4 class="h4">

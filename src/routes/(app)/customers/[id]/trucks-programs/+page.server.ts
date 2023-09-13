@@ -8,7 +8,8 @@ import type { PageServerLoad } from './$types';
 
 import { client } from '$lib/server/prisma';
 // import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
-
+// export const prerender = true;
+export const prerender = false;
 export const load: PageServerLoad = async (event) => {
 	// const getPrograms = async (trucks: TrucksWithProgramsEnrolled[]) => {
 	// 	// return trucks.map(async (truck) => {
