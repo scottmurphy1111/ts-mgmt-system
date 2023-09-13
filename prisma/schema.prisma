@@ -63,6 +63,13 @@ enum Role {
   SALES_REP
 }
 
+enum ProgramStatus {
+  ACTIVE
+  PENDING
+  EXPIRED
+  CANCELLED
+}
+
 model Customer {
   id          String    @id @default(uuid())
   createdAt   DateTime  @default(now())
@@ -111,18 +118,19 @@ model Truck {
 }
 
 model TruckProgramsEnrolled {
-  id        String   @id @default(uuid())
-  createdAt DateTime @default(now())
+  id        String        @id @default(uuid())
+  createdAt DateTime      @default(now())
   truckId   String?
-  truck     Truck?   @relation(fields: [truckId], references: [id])
+  truck     Truck?        @relation(fields: [truckId], references: [id])
   programId String?
-  program   Program? @relation(fields: [programId], references: [id])
-  isActive  Boolean  @default(true)
-  startDate DateTime @default(now())
-  endDate   DateTime @default(now())
-  price     String   @default("0.00")
+  program   Program?      @relation(fields: [programId], references: [id])
+  status    ProgramStatus @default(PENDING)
+  startDate DateTime      @default(now())
+  endDate   DateTime      @default(now())
+  price     String        @default("0.00")
 
   @@index([truckId])
+  @@index([programId])
 }
 
 enum DutyType {

@@ -31,7 +31,7 @@
 <div class="flex justify-between mb-4">
 	<h3 class="h3">
 		{$page.data.customer.firstName}
-		{$page.data.customer.lastName} - Cust Id# {$page.data.customer.id}
+		{$page.data.customer.lastName}
 	</h3>
 </div>
 <TabGroup>

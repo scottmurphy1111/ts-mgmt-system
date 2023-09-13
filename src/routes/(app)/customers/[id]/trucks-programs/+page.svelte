@@ -3,20 +3,31 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageData, PageServerData } from './$types';
-	import { DutyType } from '@prisma/client';
+	import { DutyType, type Program } from '@prisma/client';
 	import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 	import AddTruckIcon from '$lib/assets/icons/addTruck.svelte';
 	import EditIcon from '$lib/assets/icons/edit.svelte';
 	import DeleteIcon from '$lib/assets/icons/delete.svelte';
 	import format from 'date-fns/format';
+	import Dialog from '$lib/components/Dialog.svelte';
+
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
 	import { enUS } from 'date-fns/locale';
+	import { onMount } from 'svelte';
+	import { page } from '$app/stores';
+	import { writable } from 'svelte/store';
+
+	$: console.log($page);
 
 	export let data: PageServerData;
+	let dialog: HTMLDialogElement;
 
+	let programs: Program[] = [];
 	const trucks = data.trucks as unknown as TrucksWithProgramsEnrolled[];
 
 	const toastStore = getToastStore();
+
+	const truckId = writable<string>('');
 	$: console.log('data', data);
 	$: console.log('trucks', trucks);
 	// $: console.log('getPrograms', getPrograms(trucks));
@@ -44,6 +55,37 @@
 			default:
 				return DutyType.MEDIUM;
 		}
+	};
+
+	const openAddPrograms = async (currentTruckId: string) => {
+		dialog.showModal();
+
+		programs = await getPrograms();
+		truckId.set(currentTruckId);
+	};
+
+	const getPrograms = async () => {
+		const programs = await fetch('/api/programs', {
+			method: 'GET'
+		});
+		const result = await programs.json();
+		console.log('result', result);
+		return result;
+	};
+
+	const addProgramToTruck = async (truckId: string, programId: string) => {
+		const res = await fetch(`/api/truck-programs`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				truckId,
+				programId
+			})
+		});
+		const data = await res.json();
+		console.log(data);
 	};
 
 	const { form, errors, enhance, delayed } = superForm(data.form, {
@@ -76,6 +118,29 @@
 	});
 </script>
 
+<Dialog bind:dialog>
+	<div class="w-[600px] p-8">
+		<h3 class="h3 mb-8">Add Program</h3>
+		{#each programs as program}
+			<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
+				<header class="flex gap-4">
+					<h4 class="h4">
+						{program.name}
+					</h4>
+				</header>
+				<div class="flex gap-4">
+					<p>
+						{program.description}
+					</p>
+				</div>
+				<button
+					class="btn btn-sm btn-primary"
+					on:click={() => addProgramToTruck($truckId, program.id)}>Add Program</button
+				>
+			</div>
+		{/each}
+	</div>
+</Dialog>
 <div class="flex justify-between items-start py-4">
 	<div class="flex flex-col gap-4 w-full items-start">
 		<!-- <pre>
@@ -117,8 +182,8 @@
 									<th>Purchase Date</th>
 									<th>End Date</th>
 									<th>Price</th>
-									<th>Active</th>
-									<th>&nbsp;</th>
+									<th>Status</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -129,7 +194,7 @@
 										<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
 										<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
 										<td>${programEnrolled.price}</td>
-										<td>{programEnrolled.isActive}</td>
+										<td>{programEnrolled.status}</td>
 										<td>
 											<div class="flex gap-2 items-center">
 												<div class="text-xl text-gray-700 dark:text-gray-100">
@@ -147,7 +212,9 @@
 						</table>
 					</div>
 				{/if}
-				<button class="text-primary-500 font-semibold">+ Add Program</button>
+				<button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
+					>+ Add Program</button
+				>
 			</div>
 			<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">
