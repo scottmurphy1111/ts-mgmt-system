@@ -16,7 +16,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 		id: session.user.userId,
 		name: session.user.name,
 		email: session.user.email,
-		role: session.user.role,
-		env: env.NODE_ENV
+		role: session.user.role
 	};
 };
