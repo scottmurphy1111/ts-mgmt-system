@@ -1,9 +1,7 @@
 <script lang="ts">
-	import { createFormStore } from '$lib/stores/form';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
-	import type { PageData, PageServerData } from './$types';
-	import { DutyType, type Program } from '@prisma/client';
+	import type { PageServerData } from './$types';
 	import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 	import AddTruckIcon from '$lib/assets/icons/addTruck.svelte';
 	import EditIcon from '$lib/assets/icons/edit.svelte';
@@ -11,13 +9,8 @@
 	import format from 'date-fns/format';
 	import Dialog from '$lib/components/Dialog.svelte';
 
-	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
-	import { enUS } from 'date-fns/locale';
-	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
 	import { writable } from 'svelte/store';
-
-	$: console.log($page);
+	import type { Program } from '@prisma/client';
 
 	export let data: PageServerData;
 	let dialog: HTMLDialogElement;
@@ -28,8 +21,6 @@
 	const toastStore = getToastStore();
 
 	const truckId = writable<string>('');
-	$: console.log('data', data);
-	$: console.log('trucks', trucks);
 	// $: console.log('getPrograms', getPrograms(trucks));
 	// $: console.log('trucks store', $truckFormStore);
 
@@ -46,16 +37,16 @@
 	// 	console.log(data);
 	// };
 
-	const getDutyTypeSelection = (value: string) => {
-		switch (value) {
-			case 'MEDIUM':
-				return DutyType.MEDIUM;
-			case 'HEAVY':
-				return DutyType.HEAVY;
-			default:
-				return DutyType.MEDIUM;
-		}
-	};
+	// const getDutyTypeSelection = (value: string) => {
+	// 	switch (value) {
+	// 		case 'MEDIUM':
+	// 			return DutyType.MEDIUM;
+	// 		case 'HEAVY':
+	// 			return DutyType.HEAVY;
+	// 		default:
+	// 			return DutyType.MEDIUM;
+	// 	}
+	// };
 
 	const openAddPrograms = async (currentTruckId: string) => {
 		dialog.showModal();
@@ -143,9 +134,6 @@
 </Dialog>
 <div class="flex justify-between items-start py-4">
 	<div class="flex flex-col gap-4 w-full items-start">
-		<!-- <pre>
-    {JSON.stringify(trucks, null, 2)}
-  </pre> -->
 		{#each trucks as truck}
 			<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
 				<header class="flex gap-4">
