@@ -10,7 +10,7 @@
 
 	import { writable } from 'svelte/store';
 	import type { Program } from '@prisma/client';
-	import { DateInput } from 'date-picker-svelte';
+	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
 
 	export let data: PageServerData;
 	let dialog: HTMLDialogElement;
@@ -48,21 +48,21 @@
 	// 	}
 	// };
 
-	// const openAddPrograms = async (currentTruckId: string) => {
-	// 	dialog.showModal();
+	const openAddPrograms = async (currentTruckId: string) => {
+		dialog.showModal();
 
-	// 	programs = await getPrograms();
-	// 	truckId.set(currentTruckId);
-	// };
+		programs = await getPrograms();
+		truckId.set(currentTruckId);
+	};
 
-	// const getPrograms = async () => {
-	// 	const programs = await fetch('/api/programs', {
-	// 		method: 'GET'
-	// 	});
-	// 	const result = await programs.json();
-	// 	console.log('result', result);
-	// 	return result;
-	// };
+	const getPrograms = async () => {
+		const programs = await fetch('/api/programs', {
+			method: 'GET'
+		});
+		const result = await programs.json();
+		console.log('result', result);
+		return result;
+	};
 
 	// const addProgramToTruck = async (truckId: string, programId: string) => {
 	// 	const res = await fetch(`/api/truckProgramsEnrolled`, {
@@ -158,11 +158,7 @@
 					</div>
 					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
 					{#if truck.programsEnrolled.length > 0}
-						<DateInput
-							locale={localeFromDateFnsLocale(enUS)}
-							format="MM dd, yyyy"
-							bind:value={truck.programsEnrolled[0].startDate}
-						/>
+						<DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} />
 						<div class="table-container">
 							<table class="table">
 								<thead class="bg-white">
