@@ -16,7 +16,7 @@
 	let dialog: HTMLDialogElement;
 
 	let programs: Program[] = [];
-	const trucks = data.trucks;
+	$: ({ trucks } = data);
 
 	const toastStore = getToastStore();
 
@@ -137,6 +137,7 @@
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
 			{#each trucks as truck}
+				{JSON.stringify(truck, null, 2)}
 				<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
 					<header class="flex gap-4">
 						<h4 class="h4">
@@ -157,47 +158,45 @@
 						</p>
 					</div>
 					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-					<!-- {#if truck.programsEnrolled.length > 0}
-						<DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} />
-						<div class="table-container">
-							<table class="table">
-								<thead class="bg-white">
+					<DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} />
+					<div class="table-container">
+						<table class="table">
+							<thead class="bg-white">
+								<tr>
+									<th>Program</th>
+									<th>Term</th>
+									<th>Purchase Date</th>
+									<th>End Date</th>
+									<th>Price</th>
+									<th>Status</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								{#each truck.programsEnrolled as programEnrolled}
 									<tr>
-										<th>Program</th>
-										<th>Term</th>
-										<th>Purchase Date</th>
-										<th>End Date</th>
-										<th>Price</th>
-										<th>Status</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									{#each truck.programsEnrolled as programEnrolled}
-										<tr>
-											<td>{programEnrolled.program?.name}</td>
-											<td>{programEnrolled.program?.term}</td>
-											<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
-											<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
-											<td>${programEnrolled.price}</td>
-											<td>{programEnrolled.status}</td>
-											<td>
-												<div class="flex gap-2 items-center">
-													<div class="text-xl text-gray-700 dark:text-gray-100">
-														<svelte:component this={EditIcon} />
-													</div>
+										<td>{programEnrolled.program?.name}</td>
+										<td>{programEnrolled.program?.term}</td>
+										<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
+										<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
+										<td>${programEnrolled.price}</td>
+										<td>{programEnrolled.status}</td>
+										<td>
+											<div class="flex gap-2 items-center">
+												<div class="text-xl text-gray-700 dark:text-gray-100">
+													<svelte:component this={EditIcon} />
+												</div>
 
-													<div class="text-lg text-gray-700 dark:text-gray-100">
-														<svelte:component this={DeleteIcon} />
-													</div>
-												</div></td
-											>
-										</tr>
-									{/each}
-								</tbody>
-							</table>
-						</div>
-					{/if} -->
+												<div class="text-lg text-gray-700 dark:text-gray-100">
+													<svelte:component this={DeleteIcon} />
+												</div>
+											</div></td
+										>
+									</tr>
+								{/each}
+							</tbody>
+						</table>
+					</div>
 					<button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
 						>+ Add Program</button
 					>
