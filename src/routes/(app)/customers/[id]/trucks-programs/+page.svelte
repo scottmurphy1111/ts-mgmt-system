@@ -2,7 +2,6 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageServerData } from './$types';
-	import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 	import AddTruckIcon from '$lib/assets/icons/addTruck.svelte';
 	import EditIcon from '$lib/assets/icons/edit.svelte';
 	import DeleteIcon from '$lib/assets/icons/delete.svelte';
