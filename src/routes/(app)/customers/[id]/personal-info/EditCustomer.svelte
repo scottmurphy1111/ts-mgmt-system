@@ -8,7 +8,6 @@
 
 	let customerFormStore =
 		getContext<Writable<FormStoreModel<CustomerWithTrucks>>>('customerFormStore');
-	export let resetForm: () => void;
 	export let errors: any;
 
 	// onMount(() => {
