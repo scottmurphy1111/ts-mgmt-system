@@ -81,7 +81,7 @@
 			<DisplayCustomer />
 		{/if}
 		{#if $customerFormStore?.status === 'editing'}
-			<EditCustomer {errors} {resetForm} />
+			<EditCustomer {errors} />
 		{/if}
 	</form>
 	{#if $customerFormStore?.status !== 'editing'}

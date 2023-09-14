@@ -4,7 +4,7 @@ import { LuciaError } from 'lucia';
 import { message, superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
-import type { Actions } from './$types';
+import type { Actions, PageServerLoad } from './$types';
 
 import { auth } from '$lib/server/lucia';
 import { validatePasswordResetToken } from '$lib/server/token';
@@ -32,7 +32,7 @@ const passwordResetSchema = z
 		}
 	});
 
-export const load = async (event) => {
+export const load: PageServerLoad = async (event) => {
 	const form = await superValidate(event, passwordResetSchema);
 	return { form };
 };
