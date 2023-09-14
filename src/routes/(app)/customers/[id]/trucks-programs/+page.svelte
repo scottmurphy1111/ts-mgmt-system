@@ -133,7 +133,7 @@
 			{/each}
 		</div>
 	</Dialog> -->
-	<div class="flex justify-between items-start py-4">
+	<!-- <div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
 			{@debug trucks}
 			{#each trucks as truck}
@@ -157,13 +157,13 @@
 						</p>
 					</div>
 					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-					{#if truck.programsEnrolled.length > 0}
-						<!-- <DateInput
+					{#if truck.programsEnrolled.length > 0} -->
+	<!-- <DateInput
 						locale={localeFromDateFnsLocale(enUS)}
 						format="MM dd, yyyy"
 						bind:value={truck.programsEnrolled[0].startDate}
 					/> -->
-						<div class="table-container">
+	<!-- <div class="table-container">
 							<table class="table">
 								<thead class="bg-white">
 									<tr>
@@ -201,12 +201,12 @@
 								</tbody>
 							</table>
 						</div>
-					{/if}
-					<!-- <button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
+					{/if} -->
+	<!-- <button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
 						>+ Add Program</button
 					> -->
-				</div>
-				<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
+	<!-- </div> -->
+	<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">
 				<input hidden type="text" name="id" value={truck.id} />
 				<label class="label" for="vin">
@@ -287,7 +287,7 @@
 				<button type="submit" class="btn btn-primary">Save</button>
 			</div>
 		</form> -->
-			{/each}
+	<!-- {/each}
 		</div>
 	</div>
 	<button class="btn btn-primary">
@@ -295,5 +295,6 @@
 			<svelte:component this={AddTruckIcon} />
 		</div>
 		&nbsp;Add Truck</button
-	>
+	> -->
+	TEST
 </div>
