@@ -47,36 +47,36 @@
 	// 	}
 	// };
 
-	const openAddPrograms = async (currentTruckId: string) => {
-		dialog.showModal();
+	// const openAddPrograms = async (currentTruckId: string) => {
+	// 	dialog.showModal();
 
-		programs = await getPrograms();
-		truckId.set(currentTruckId);
-	};
+	// 	programs = await getPrograms();
+	// 	truckId.set(currentTruckId);
+	// };
 
-	const getPrograms = async () => {
-		const programs = await fetch('/api/programs', {
-			method: 'GET'
-		});
-		const result = await programs.json();
-		console.log('result', result);
-		return result;
-	};
+	// const getPrograms = async () => {
+	// 	const programs = await fetch('/api/programs', {
+	// 		method: 'GET'
+	// 	});
+	// 	const result = await programs.json();
+	// 	console.log('result', result);
+	// 	return result;
+	// };
 
-	const addProgramToTruck = async (truckId: string, programId: string) => {
-		const res = await fetch(`/api/truckProgramsEnrolled`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				truckId,
-				programId
-			})
-		});
-		const data = await res.json();
-		console.log(data);
-	};
+	// const addProgramToTruck = async (truckId: string, programId: string) => {
+	// 	const res = await fetch(`/api/truckProgramsEnrolled`, {
+	// 		method: 'POST',
+	// 		headers: {
+	// 			'Content-Type': 'application/json'
+	// 		},
+	// 		body: JSON.stringify({
+	// 			truckId,
+	// 			programId
+	// 		})
+	// 	});
+	// 	const data = await res.json();
+	// 	console.log(data);
+	// };
 
 	const { form, errors, enhance, delayed } = superForm(data.form, {
 		invalidateAll: true,
@@ -109,7 +109,7 @@
 </script>
 
 <div>
-	<Dialog bind:dialog>
+	<!-- <Dialog bind:dialog>
 		<div class="w-[600px] p-8">
 			<h3 class="h3 mb-8">Add Program</h3>
 			{@debug programs}
@@ -132,7 +132,7 @@
 				</div>
 			{/each}
 		</div>
-	</Dialog>
+	</Dialog> -->
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
 			{@debug trucks}
@@ -202,9 +202,9 @@
 							</table>
 						</div>
 					{/if}
-					<button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
+					<!-- <button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
 						>+ Add Program</button
-					>
+					> -->
 				</div>
 				<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">
