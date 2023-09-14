@@ -13,10 +13,12 @@
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
 
 	export let data: PageServerData;
+	$: console.log('data', data);
 	let dialog: HTMLDialogElement;
 
 	let programs: Program[] = [];
 	$: ({ trucks } = data);
+	$: console.log('trucks', trucks);
 
 	const toastStore = getToastStore();
 
@@ -136,6 +138,7 @@
 	</Dialog> -->
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
+			{@debug trucks}
 			{#each trucks as truck}
 				{JSON.stringify(truck, null, 2)}
 				<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
@@ -158,7 +161,7 @@
 						</p>
 					</div>
 					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-					<DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} />
+					<!-- <DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} /> -->
 					<div class="table-container">
 						<table class="table">
 							<thead class="bg-white">
