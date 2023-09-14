@@ -157,7 +157,7 @@
 						</p>
 					</div>
 					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-					{#if truck.programsEnrolled.length > 0}
+					<!-- {#if truck.programsEnrolled.length > 0}
 						<DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} />
 						<div class="table-container">
 							<table class="table">
@@ -197,7 +197,7 @@
 								</tbody>
 							</table>
 						</div>
-					{/if}
+					{/if} -->
 					<button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
 						>+ Add Program</button
 					>
