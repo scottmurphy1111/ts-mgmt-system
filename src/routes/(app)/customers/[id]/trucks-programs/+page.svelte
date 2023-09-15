@@ -115,7 +115,6 @@
 	<!-- <Dialog bind:dialog>
 		<div class="w-[600px] p-8">
 			<h3 class="h3 mb-8">Add Program</h3>
-			{@debug programs}
 			{#each programs as program}
 				<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
 					<header class="flex gap-4">
@@ -138,7 +137,6 @@
 	</Dialog> -->
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
-			{@debug trucks}
 			{#each trucks as truck}
 				{JSON.stringify(truck, null, 2)}
 				<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
