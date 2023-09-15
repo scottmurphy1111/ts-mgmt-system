@@ -11,6 +11,7 @@
 	import { writable } from 'svelte/store';
 	import type { Program } from '@prisma/client';
 	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
+	import { browser } from '$app/environment';
 
 	export let data: PageServerData;
 	$: console.log('data', data);
@@ -137,72 +138,74 @@
 	</Dialog> -->
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
-			{#each trucks as truck}
-				{JSON.stringify(truck, null, 2)}
-				<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
-					<header class="flex gap-4">
-						<h4 class="h4">
-							{truck.vin}
-						</h4>
-					</header>
-					<div class="flex gap-4">
-						<p>
-							{truck.year}
-							{truck.make}
-							{truck.model}
-						</p>
-						<p>
-							{truck.startMiles} miles
-						</p>
-						<p>
-							{truck.dutyType}
-						</p>
-					</div>
-					<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-					<!-- <DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} /> -->
-					<div class="table-container">
-						<table class="table">
-							<thead class="bg-white">
-								<tr>
-									<th>Program</th>
-									<th>Term</th>
-									<th>Purchase Date</th>
-									<th>End Date</th>
-									<th>Price</th>
-									<th>Status</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								{#each truck.programsEnrolled as programEnrolled}
+			{#if browser}
+				{#each trucks as truck}
+					{JSON.stringify(truck, null, 2)}
+					<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
+						<header class="flex gap-4">
+							<h4 class="h4">
+								{truck.vin}
+							</h4>
+						</header>
+						<div class="flex gap-4">
+							<p>
+								{truck.year}
+								{truck.make}
+								{truck.model}
+							</p>
+							<p>
+								{truck.startMiles} miles
+							</p>
+							<p>
+								{truck.dutyType}
+							</p>
+						</div>
+						<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
+						<!-- <DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} /> -->
+						<div class="table-container">
+							<table class="table">
+								<thead class="bg-white">
 									<tr>
-										<td>{programEnrolled.program?.name}</td>
-										<td>{programEnrolled.program?.term}</td>
-										<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
-										<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
-										<td>${programEnrolled.price}</td>
-										<td>{programEnrolled.status}</td>
-										<td>
-											<div class="flex gap-2 items-center">
-												<div class="text-xl text-gray-700 dark:text-gray-100">
-													<svelte:component this={EditIcon} />
-												</div>
-
-												<div class="text-lg text-gray-700 dark:text-gray-100">
-													<svelte:component this={DeleteIcon} />
-												</div>
-											</div></td
-										>
+										<th>Program</th>
+										<th>Term</th>
+										<th>Purchase Date</th>
+										<th>End Date</th>
+										<th>Price</th>
+										<th>Status</th>
+										<th></th>
 									</tr>
-								{/each}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{#each truck.programsEnrolled as programEnrolled}
+										<tr>
+											<td>{programEnrolled.program?.name}</td>
+											<td>{programEnrolled.program?.term}</td>
+											<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
+											<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
+											<td>${programEnrolled.price}</td>
+											<td>{programEnrolled.status}</td>
+											<td>
+												<div class="flex gap-2 items-center">
+													<div class="text-xl text-gray-700 dark:text-gray-100">
+														<svelte:component this={EditIcon} />
+													</div>
+
+													<div class="text-lg text-gray-700 dark:text-gray-100">
+														<svelte:component this={DeleteIcon} />
+													</div>
+												</div></td
+											>
+										</tr>
+									{/each}
+								</tbody>
+							</table>
+						</div>
+						<button
+							class="text-primary-500 font-semibold"
+							on:click={() => openAddPrograms(truck.id)}>+ Add Program</button
+						>
 					</div>
-					<button class="text-primary-500 font-semibold" on:click={() => openAddPrograms(truck.id)}
-						>+ Add Program</button
-					>
-				</div>
-				<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
+					<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">
 				<input hidden type="text" name="id" value={truck.id} />
 				<label class="label" for="vin">
@@ -283,7 +286,8 @@
 				<button type="submit" class="btn btn-primary">Save</button>
 			</div>
 		</form> -->
-			{/each}
+				{/each}
+			{/if}
 		</div>
 	</div>
 	<button class="btn btn-primary">
