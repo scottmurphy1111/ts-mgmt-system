@@ -215,7 +215,7 @@
 	</div>
 </Dialog> -->
 <div class="table-container w-full">
-	<table class="table bg-transparent">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>
@@ -233,7 +233,7 @@
 						}}
 					/>
 				</th>
-				<th>Id</th>
+				<th>User Id</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Email Verified</th>

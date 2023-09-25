@@ -48,6 +48,10 @@
 		Program Name
 		<input class="input" type="text" name="name" value={program?.name} />
 	</label>
+	<label class="label" for="term">
+		Term
+		<input class="input" type="text" name="term" value={program?.term} />
+	</label>
 	<label class="label" for="description">
 		Program Description
 		<textarea class="textarea" name="description" value={program?.description} />

@@ -3,23 +3,24 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import type { PageServerData } from './$types';
 	import AddTruckIcon from '$lib/assets/icons/addTruck.svelte';
-	import EditIcon from '$lib/assets/icons/edit.svelte';
-	import DeleteIcon from '$lib/assets/icons/delete.svelte';
+
 	import format from 'date-fns/format';
 	import Dialog from '$lib/components/Dialog.svelte';
 
 	import { writable } from 'svelte/store';
 	import type { Program } from '@prisma/client';
-	import { DateInput, localeFromDateFnsLocale } from 'date-picker-svelte';
+
 	import { browser } from '$app/environment';
+	import { invalidateAll } from '$app/navigation';
+	import ProgramEnrolled from './ProgramEnrolled.svelte';
 
 	export let data: PageServerData;
-	$: console.log('data', data);
+	// $: console.log('data', data);
 	let dialog: HTMLDialogElement;
 
 	let programs: Program[] = [];
 	$: ({ trucks } = data);
-	$: console.log('trucks', trucks);
+	// $: console.log('trucks', trucks);
 
 	const toastStore = getToastStore();
 
@@ -67,20 +68,21 @@
 		return result;
 	};
 
-	// const addProgramToTruck = async (truckId: string, programId: string) => {
-	// 	const res = await fetch(`/api/truckProgramsEnrolled`, {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json'
-	// 		},
-	// 		body: JSON.stringify({
-	// 			truckId,
-	// 			programId
-	// 		})
-	// 	});
-	// 	const data = await res.json();
-	// 	console.log(data);
-	// };
+	const addProgramToTruck = async (truckId: string, programId: string) => {
+		const res = await fetch(`/api/truck-programs`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				truckId,
+				programId
+			})
+		});
+		const data = await res.json();
+		await invalidateAll();
+		dialog.close();
+	};
 
 	const { form, errors, enhance, delayed } = superForm(data.form, {
 		invalidateAll: true,
@@ -113,7 +115,7 @@
 </script>
 
 <div>
-	<!-- <Dialog bind:dialog>
+	<Dialog bind:dialog>
 		<div class="w-[600px] p-8">
 			<h3 class="h3 mb-8">Add Program</h3>
 			{#each programs as program}
@@ -135,33 +137,38 @@
 				</div>
 			{/each}
 		</div>
-	</Dialog> -->
+	</Dialog>
 	<div class="flex justify-between items-start py-4">
 		<div class="flex flex-col gap-4 w-full items-start">
 			{#if browser}
 				{#each trucks as truck}
-					{JSON.stringify(truck, null, 2)}
 					<div class="card p-4 w-full flex flex-col gap-4 mb-8 items-start justify-between">
-						<header class="flex gap-4">
-							<h4 class="h4">
-								{truck.vin}
-							</h4>
-						</header>
-						<div class="flex gap-4">
-							<p>
-								{truck.year}
-								{truck.make}
-								{truck.model}
-							</p>
-							<p>
-								{truck.startMiles} miles
-							</p>
-							<p>
-								{truck.dutyType}
-							</p>
+						<div class="flex gap-4 w-full justify-between items-center">
+							<div>
+								<header class="flex gap-4">
+									<h4 class="h4">
+										{truck.vin}
+									</h4>
+								</header>
+								<div class="flex gap-4">
+									<p>
+										{truck.year}
+										{truck.make}
+										{truck.model}
+									</p>
+									<p>
+										{Number(truck.startMiles).toLocaleString('en-US')} miles
+									</p>
+									<p>
+										{truck.dutyType}
+									</p>
+								</div>
+							</div>
+
+							<a href={`/trucks/${truck.id}`} class="btn btn-primary flex-shrink-0"
+								>Edit Truck Info</a
+							>
 						</div>
-						<a href={`/trucks/${truck.id}`} class="btn btn-sm btn-primary">Edit Truck Info</a>
-						<!-- <DateInput format="MM dd, yyyy" bind:value={truck.programsEnrolled[0].startDate} /> -->
 						<div class="table-container">
 							<table class="table">
 								<thead class="bg-white">
@@ -176,34 +183,26 @@
 									</tr>
 								</thead>
 								<tbody>
-									{#each truck.programsEnrolled as programEnrolled}
+									{#if truck.programsEnrolled.length === 0}
 										<tr>
-											<td>{programEnrolled.program?.name}</td>
-											<td>{programEnrolled.program?.term}</td>
-											<td>{format(programEnrolled.startDate, 'MMMM dd, yyyy')}</td>
-											<td>{format(programEnrolled.endDate, 'MMMM dd, yyyy')}</td>
-											<td>${programEnrolled.price}</td>
-											<td>{programEnrolled.status}</td>
-											<td>
-												<div class="flex gap-2 items-center">
-													<div class="text-xl text-gray-700 dark:text-gray-100">
-														<svelte:component this={EditIcon} />
-													</div>
-
-													<div class="text-lg text-gray-700 dark:text-gray-100">
-														<svelte:component this={DeleteIcon} />
-													</div>
-												</div></td
-											>
+											<td colspan="7" class="text-center">No Programs Enrolled</td>
 										</tr>
-									{/each}
+									{:else}
+										{#each truck.programsEnrolled as programEnrolled}
+											<ProgramEnrolled {programEnrolled} truckId={truck.id} />
+										{/each}
+									{/if}
+									<tr>
+										<td colspan="7">
+											<button
+												class="text-primary-500 font-semibold"
+												on:click={() => openAddPrograms(truck.id)}>+ Add Program</button
+											>
+										</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
-						<button
-							class="text-primary-500 font-semibold"
-							on:click={() => openAddPrograms(truck.id)}>+ Add Program</button
-						>
 					</div>
 					<!-- <form class="flex flex-col gap-4 mb-4" method="post" action="?/updateTruckInfo" use:enhance>
 			<div class="flex flex-col gap-4">

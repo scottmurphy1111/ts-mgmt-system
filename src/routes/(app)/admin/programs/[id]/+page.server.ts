@@ -41,6 +41,7 @@ export const actions: Actions = {
 				},
 				data: {
 					name: form.data.name.toString(),
+					term: form.data.term.toString(),
 					description: form.data.description.toString()
 				}
 			});

@@ -13,3 +13,9 @@ export type TrucksWithProgramsEnrolled = Prisma.TruckGetPayload<{
 		};
 	};
 }>;
+
+export type TruckProgramsEnrolledWithProgram = Prisma.TruckProgramsEnrolledGetPayload<{
+	include: {
+		program: true;
+	};
+}>;

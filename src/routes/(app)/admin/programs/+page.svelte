@@ -127,6 +127,17 @@
 					/>
 				</div>
 				<div class="flex flex-col gap-2">
+					<label for="term">Term</label>
+					<input
+						class="input"
+						type="text"
+						name="term"
+						id="term"
+						required
+						placeholder="Enter Term"
+					/>
+				</div>
+				<div class="flex flex-col gap-2">
 					<label for="description">Description</label>
 					<textarea
 						class="input"
@@ -151,7 +162,7 @@
 	</div>
 </Dialog>
 <div class="table-container w-full">
-	<table class="table bg-transparent">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>
@@ -169,8 +180,8 @@
 						}}
 					/>
 				</th>
-				<th>Id</th>
 				<th>Name</th>
+				<th>Term</th>
 				<th>Description</th>
 			</tr>
 		</thead>
@@ -193,8 +204,8 @@
 							}}
 						/>
 					</td>
-					<td>{program.id}</td>
 					<td>{program.name}</td>
+					<td>{program.term}</td>
 					<td>{program.description}</td>
 				</tr>
 			{/each}

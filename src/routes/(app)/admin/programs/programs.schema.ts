@@ -6,6 +6,7 @@ export const programSchema = z.object({
 		.min(1, { message: 'Name is required' })
 		.max(100, { message: 'Name must be less than 100 characters' })
 		.trim(),
+	term: z.string().trim(),
 	description: z
 		.string({ required_error: 'Description is required' })
 		.min(1, { message: 'Description is required' })

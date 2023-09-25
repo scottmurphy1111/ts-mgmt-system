@@ -160,7 +160,7 @@
 			>
 		{/if}
 		<button class="btn btn-primary" on:click={addNewCustomer}
-			><svelte:component this={AddCustomerIcon} />&nbsp;Create Customer</button
+			><svelte:component this={AddCustomerIcon} />&nbsp;Create New Customer</button
 		>
 	</div>
 </div>
@@ -174,7 +174,7 @@
 			action="?/create"
 			use:enhance
 		>
-			<EditCustomer {resetForm} {errors} />
+			<EditCustomer {errors} />
 			<!-- {#if $customerFormStore?.status === 'editing'} -->
 			<div class="flex justify-end gap-2">
 				<div class="">
@@ -196,7 +196,7 @@
 		<Search {handler} />
 		<RowsPerPage {handler} />
 	</div>
-	<table class="table bg-transparent dark:bg-transparent">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>

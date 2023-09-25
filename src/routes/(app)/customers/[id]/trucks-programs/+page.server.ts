@@ -7,6 +7,7 @@ import { truckInfoSchema } from '../../customer.schema';
 import type { PageServerLoad } from './$types';
 
 import { client } from '$lib/server/prisma';
+import { convertToIso } from '$lib/utils/formatters';
 // import type { TrucksWithProgramsEnrolled } from '$lib/types/truck.types';
 // export const prerender = true;
 export const prerender = false;
@@ -33,7 +34,7 @@ export const load: PageServerLoad = async (event) => {
 			}
 		});
 
-		console.log('trucks', trucks);
+		// console.log('trucks', trucks);
 
 		return trucks;
 	};
@@ -99,5 +100,79 @@ export const actions: Actions = {
 		return {
 			form
 		};
+	},
+	updateProgram: async ({ request }) => {
+		console.log('updateProgram');
+		const formData = await request.formData();
+		const id = formData.get('id')?.toString();
+		const startDate = formData.get('startDate')?.toString();
+		const endDate = formData.get('endDate')?.toString();
+		const price = formData.get('price')?.toString();
+
+		console.log('startDate', startDate);
+		console.log('endDate', endDate);
+		console.log('price', price);
+
+		try {
+			await client.truckProgramsEnrolled.update({
+				where: {
+					id: id
+				},
+				data: {
+					startDate: convertToIso(startDate),
+					endDate: convertToIso(endDate),
+					price: price
+				}
+			});
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				console.error(e);
+			}
+		}
+	},
+
+	removeProgram: async ({ request }) => {
+		// const form = await superValidate(event, truckInfoSchema);
+		const formData = await request.formData();
+		const id = formData.get('id')?.toString();
+		const truckId = formData.get('truckId')?.toString();
+
+		const truck = await client.truck.findUnique({
+			where: {
+				id: truckId
+			},
+			select: {
+				programsEnrolled: true
+			}
+		});
+		console.log('formData', formData);
+
+		// if (!form.valid) {
+		// 	return message(form, 'Truck Data is Invalid, Try Again!');
+		// }
+
+		console.log('removeProgram', id, truck);
+
+		try {
+			await client.truck.update({
+				where: {
+					id: truckId
+				},
+				data: {
+					programsEnrolled: {
+						set: truck?.programsEnrolled.filter((program) => program.id !== id)
+					}
+				}
+			});
+		} catch (e) {
+			if (e instanceof Prisma.PrismaClientKnownRequestError) {
+				console.error(e);
+				// return message(form, 'Internal Server Error');
+			}
+		}
+
+		// return {
+		// 	form
+		// };
 	}
 };

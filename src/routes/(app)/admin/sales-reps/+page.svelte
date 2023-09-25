@@ -186,7 +186,7 @@
 	</div>
 </Dialog>
 <div class="table-container w-full">
-	<table class="table bg-transparent">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>
@@ -205,7 +205,6 @@
 						}}
 					/>
 				</th>
-				<th>Id</th>
 				<th>First Name</th>
 				<th>Last Name</th>
 				<th>Address</th>
@@ -240,7 +239,6 @@
 							}}
 						/>
 					</td>
-					<td>{salesRep.id}</td>
 					<td>{salesRep.firstName}</td>
 					<td>{salesRep.lastName}</td>
 					<td>{salesRep.address}</td>

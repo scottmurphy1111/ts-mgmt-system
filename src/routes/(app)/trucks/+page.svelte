@@ -50,7 +50,7 @@
 </form>
 
 <div class="table-container w-full">
-	<table class="table bg-transparent">
+	<table class="table">
 		<thead>
 			<tr>
 				<th>VIN #</th>

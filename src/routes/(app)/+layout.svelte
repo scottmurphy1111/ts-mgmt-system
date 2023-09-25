@@ -17,7 +17,7 @@
 
 	export let data: LayoutData;
 
-	console.log('data', data);
+	// console.log('data', data);
 </script>
 
 <Toast />
